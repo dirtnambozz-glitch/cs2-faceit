@@ -75,7 +75,9 @@
                             <!-- Player Info -->
                             <td class="py-4 px-6">
                                 <div class="flex items-center space-x-3">
-                                    <img src="{{ $u->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $u->name }}" class="w-10 h-10 rounded-xl bg-neutral-900 border border-[#FF0055]/40" alt="Avatar">
+                                    <a href="{{ route('profile', ['id' => $u->id]) }}" class="shrink-0 group">
+                                        <img src="{{ $u->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $u->name }}" class="w-10 h-10 rounded-xl bg-neutral-900 border border-[#FF0055]/40 group-hover:border-[#FF0055] group-hover:shadow-[0_0_10px_rgba(255,0,85,0.4)] transition" alt="Avatar">
+                                    </a>
                                     <div>
                                         <div class="flex items-center space-x-2">
                                             <a href="{{ route('profile', ['id' => $u->id]) }}" class="font-cyber font-bold text-white hover:text-[#FF2A6D] transition-colors {{ auth()->id() === $u->id ? 'text-[#FF2A6D]' : '' }}">

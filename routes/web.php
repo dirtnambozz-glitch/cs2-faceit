@@ -31,12 +31,12 @@ Route::post('/auth/steam/direct', [SteamAuthController::class, 'directLogin'])
 // Public pages
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 Route::get('/player/{id}', Profile::class)->name('profile.player');
+Route::get('/profile/{id?}', Profile::class)->name('profile');
 
 // Protected routes (require auth)
 Route::middleware('auth')->group(function () {
     Route::get('/', Matchmaking::class)->name('home');
     Route::get('/match/{uuid}', MatchLobby::class)->name('match.lobby');
-    Route::get('/profile', Profile::class)->name('profile');
     Route::get('/server', ServerSettings::class)->name('server.settings');
 });
 

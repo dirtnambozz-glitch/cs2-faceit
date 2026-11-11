@@ -19,9 +19,11 @@ class Profile extends Component
 
     public function mount(?int $id = null): void
     {
-        if ($id) {
-            $this->user = User::findOrFail($id);
-            $this->viewUserId = $id;
+        $targetId = $id ?: (request()->route('id') ?: request()->query('id'));
+
+        if ($targetId) {
+            $this->user = User::findOrFail($targetId);
+            $this->viewUserId = (int) $targetId;
         } else {
             $this->user = Auth::user();
             if (! $this->user) {

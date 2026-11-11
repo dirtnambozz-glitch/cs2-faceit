@@ -227,11 +227,15 @@
 
                             <div class="flex items-center space-x-2.5">
                                 <span class="text-xs font-mono text-[#FF0055]">vs</span>
-                                <span class="text-sm font-semibold text-neutral-200">{{ $opponent ? $opponent->name : 'Оппонент' }}</span>
                                 @if($opponent)
+                                    <a href="{{ route('profile', ['id' => $opponent->id]) }}" class="text-sm font-semibold text-neutral-200 hover:text-[#FF2A6D] transition">
+                                        {{ $opponent->name }}
+                                    </a>
                                     <span class="w-6 h-6 rounded-lg flex items-center justify-center font-faceit text-xs font-bold bg-[#FF0055]/30 text-white border border-[#FF0055]/50">
                                         {{ $opponent->level }}
                                     </span>
+                                @else
+                                    <span class="text-sm font-semibold text-neutral-200">Оппонент</span>
                                 @endif
                             </div>
 

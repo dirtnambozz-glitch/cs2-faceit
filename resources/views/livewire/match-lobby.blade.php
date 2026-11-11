@@ -16,7 +16,9 @@
                 </div>
                 <div>
                     <div class="flex items-center space-x-2">
-                        <span class="text-xl sm:text-2xl font-cyber font-extrabold text-white tracking-wide">{{ $match->player1->name }}</span>
+                        <a href="{{ route('profile', ['id' => $match->player1->id]) }}" class="text-xl sm:text-2xl font-cyber font-extrabold text-white tracking-wide hover:text-[#FF2A6D] transition">
+                            {{ $match->player1->name }}
+                        </a>
                         @if($match->player1->is_bot)
                             <span class="text-[10px] font-mono bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40 px-2 py-0.5 rounded uppercase">AI BOT</span>
                         @endif
@@ -64,9 +66,15 @@
                         @if($match->player2 && $match->player2->is_bot)
                             <span class="text-[10px] font-mono bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40 px-2 py-0.5 rounded uppercase">AI BOT</span>
                         @endif
-                        <span class="text-xl sm:text-2xl font-cyber font-extrabold text-white tracking-wide">
-                            {{ $match->player2 ? $match->player2->name : 'Ожидание соперника...' }}
-                        </span>
+                        @if($match->player2)
+                            <a href="{{ route('profile', ['id' => $match->player2->id]) }}" class="text-xl sm:text-2xl font-cyber font-extrabold text-white tracking-wide hover:text-[#FF2A6D] transition">
+                                {{ $match->player2->name }}
+                            </a>
+                        @else
+                            <span class="text-xl sm:text-2xl font-cyber font-extrabold text-white tracking-wide">
+                                Ожидание соперника...
+                            </span>
+                        @endif
                     </div>
                     @if($match->player2)
                     <div class="flex items-center justify-end space-x-2.5 mt-1 font-mono text-xs text-neutral-400">
