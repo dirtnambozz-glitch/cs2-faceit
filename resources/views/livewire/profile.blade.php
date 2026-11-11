@@ -68,6 +68,51 @@
                         <span class="font-cyber font-bold text-xl text-emerald-400">{{ $user->wins_count }} <span class="text-neutral-500 text-sm">/</span> <span class="text-red-400">{{ $user->losses_count }}</span></span>
                     </div>
                 </div>
+
+                <!-- Admin Ban Control Bar (For Admins) -->
+                @if(auth()->check() && auth()->user()->isAdmin())
+                    <div class="mt-4 pt-4 border-t border-[#FF0055]/30 flex flex-wrap items-center justify-between gap-3 bg-[#08040A] p-4 rounded-2xl border border-white/10">
+                        <div class="flex items-center space-x-2 text-xs font-mono">
+                            <span class="text-[#FF0055] font-bold">АДМИН-ПАНЕЛЬ:</span>
+                            @if($user->isBanned())
+                                <span class="text-red-400 font-bold bg-red-500/20 px-2.5 py-1 rounded-lg border border-red-500/40">
+                                    ЗАБАНЕН до {{ $user->banned_until->format('H:i d.m') }} ({{ $user->ban_reason }})
+                                </span>
+                            @else
+                                <span class="text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-lg border border-emerald-500/40">
+                                    АКТИВЕН (НЕТ БАНА)
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            @if($user->isBanned())
+                                <button 
+                                    wire:click="unban" 
+                                    class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:brightness-110 text-white font-cyber font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] transition cursor-pointer flex items-center space-x-1.5 border border-emerald-300/40">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>СНЯТЬ БАН</span>
+                                </button>
+                            @else
+                                <button 
+                                    wire:click="adminBan(15)" 
+                                    class="px-3 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-cyber font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
+                                    Бан 15м
+                                </button>
+                                <button 
+                                    wire:click="adminBan(60)" 
+                                    class="px-3 py-1.5 bg-red-700/80 hover:bg-red-700 text-white font-cyber font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
+                                    Бан 1ч
+                                </button>
+                                <button 
+                                    wire:click="adminBan(1440)" 
+                                    class="px-3 py-1.5 bg-red-900/80 hover:bg-red-800 text-white font-cyber font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer">
+                                    Бан 24ч
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

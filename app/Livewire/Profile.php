@@ -36,6 +36,29 @@ class Profile extends Component
         $this->steamIdInput = $this->user->steam_id ?? '';
     }
 
+    public function unban(): void
+    {
+        if (! Auth::check() || ! Auth::user()->isAdmin()) {
+            return;
+        }
+
+        $this->user->banned_until = null;
+        $this->user->ban_reason = null;
+        $this->user->save();
+
+        session()->flash('status', "Бан с игрока {$this->user->name} успешно снят!");
+    }
+
+    public function adminBan(int $minutes = 15): void
+    {
+        if (! Auth::check() || ! Auth::user()->isAdmin()) {
+            return;
+        }
+
+        $this->user->applyBan($minutes, 'Блокировка администратором');
+        session()->flash('status', "Игрок {$this->user->name} заблокирован на {$minutes} мин.");
+    }
+
     public function updateProfile(): void
     {
         if (! Auth::check() || Auth::id() !== $this->user->id) {

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Services\Cs2\RconService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,15 +17,60 @@ class ServerSettings extends Component
     public ?string $serverConsoleOutput = null;
     public bool $isConnected = false;
 
+    // Admin Player & Ban Management
+    public string $searchQuery = '';
+    public int $manualBanMinutes = 15;
+    public string $manualBanReason = 'Нарушение правил администратором';
+
     public function mount(): void
     {
         if (! auth()->check() || ! auth()->user()->isAdmin()) {
-            abort(403, 'Доступ к серверу разрешен только создателю и администраторам.');
+            abort(403, 'Доступ к разделу разрешен только создателю и администраторам.');
         }
 
         $this->serverIp = config('services.cs2.server_ip', '89.248.236.141');
         $this->serverPort = (int) config('services.cs2.server_port', 27574);
         $this->rconPassword = config('services.cs2.rcon_password', '');
+    }
+
+    public function unbanUser(int $userId): void
+    {
+        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+            return;
+        }
+
+        $user = User::findOrFail($userId);
+        $user->banned_until = null;
+        $user->ban_reason = null;
+        $user->save();
+
+        session()->flash('message', "Бан с игрока {$user->name} успешно снят!");
+    }
+
+    public function resetWarnings(int $userId): void
+    {
+        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+            return;
+        }
+
+        $user = User::findOrFail($userId);
+        $user->warnings_count = 0;
+        $user->save();
+
+        session()->flash('message', "Предупреждения игрока {$user->name} сброшены на 0!");
+    }
+
+    public function manualBanUser(int $userId): void
+    {
+        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+            return;
+        }
+
+        $user = User::findOrFail($userId);
+        $reason = trim($this->manualBanReason) ?: 'Блокировка администратором';
+        $user->applyBan($this->manualBanMinutes, $reason);
+
+        session()->flash('message', "Игрок {$user->name} заблокирован на {$this->manualBanMinutes} мин. Причина: {$reason}");
     }
 
     public function testConnection(): void
@@ -49,7 +95,6 @@ class ServerSettings extends Component
 
     public function saveSettings(): void
     {
-        // Update in-memory / session config
         config([
             'services.cs2.server_ip' => $this->serverIp,
             'services.cs2.server_port' => $this->serverPort,
@@ -79,6 +124,24 @@ class ServerSettings extends Component
 
     public function render()
     {
-        return view('livewire.server-settings');
+        $bannedUsers = User::whereNotNull('banned_until')
+            ->where('banned_until', '>', now())
+            ->orderBy('banned_until', 'desc')
+            ->get();
+
+        $searchResults = collect();
+        if (strlen(trim($this->searchQuery)) >= 2) {
+            $q = trim($this->searchQuery);
+            $searchResults = User::where('name', 'like', "%{$q}%")
+                ->orWhere('steam_id', 'like', "%{$q}%")
+                ->orWhere('email', 'like', "%{$q}%")
+                ->take(10)
+                ->get();
+        }
+
+        return view('livewire.server-settings', [
+            'bannedUsers' => $bannedUsers,
+            'searchResults' => $searchResults,
+        ]);
     }
 }
