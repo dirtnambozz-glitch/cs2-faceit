@@ -101,14 +101,9 @@
                     <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#FF0055] rounded-full animate-ping"></div>
                 </div>
                 <div>
-                    <div class="flex items-center space-x-2">
-                        <span class="font-cyber font-extrabold text-2xl text-white tracking-widest uppercase group-hover:text-[#FF0055] transition-colors">
-                            RIVALIS
-                        </span>
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-[#FF0055] bg-[#FF0055]/15 border border-[#FF0055]/40 px-2 py-0.5 rounded-sm">
-                            CS2 1v1
-                        </span>
-                    </div>
+                    <span class="font-cyber font-extrabold text-2xl text-white tracking-widest uppercase group-hover:text-[#FF0055] transition-colors">
+                        RIVALIS
+                    </span>
                     <p class="text-[10px] font-mono tracking-widest text-neutral-400 uppercase hidden sm:block -mt-0.5">
                         CYBER ESPORTS PLATFORM
                     </p>

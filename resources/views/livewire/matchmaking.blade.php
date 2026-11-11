@@ -65,10 +65,10 @@
     <div class="relative rounded-3xl mb-8 overflow-hidden border border-[#FF0055]/40 shadow-[0_0_40px_rgba(255,0,85,0.25)] bg-[#0C0512]">
         <!-- Hero Background Image with Cyber Overlay Gradients -->
         <div class="absolute inset-0">
-            <img src="/images/rivalis-hero.jpg" alt="RIVALIS Cyber Gamer" class="w-full h-full object-cover object-center opacity-30 md:opacity-40 mix-blend-luminosity scale-105 filter contrast-125">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#08040A] via-[#08040A]/80 to-transparent"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#08040A] via-transparent to-[#08040A]/60"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#FF0055]/20 via-transparent to-transparent"></div>
+            <img src="/images/rivalis-hero.jpg" alt="RIVALIS Cyber Gamer" class="w-full h-full object-cover object-center opacity-25 md:opacity-35 mix-blend-luminosity scale-105 filter contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#08040A]/90 via-[#08040A]/60 to-[#08040A]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#08040A_80%)]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#FF0055]/20 via-transparent to-transparent"></div>
         </div>
 
         <!-- Cyber Corner Accents -->
@@ -77,30 +77,24 @@
         <div class="absolute bottom-3 left-3 text-[#FF0055]/50 font-mono text-xs select-none">+ RIVALIS.1V1</div>
         <div class="absolute bottom-3 right-3 text-[#FF0055]/50 font-mono text-xs select-none">FPS // 128T +</div>
 
-        <!-- Hero Content -->
-        <div class="relative z-10 p-6 sm:p-12 md:p-16 max-w-3xl">
-            <!-- Badge -->
-            <div class="inline-flex items-center space-x-2 bg-[#FF0055]/15 border border-[#FF0055]/50 text-[#FF2A6D] px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(255,0,85,0.3)]">
-                <span class="w-2 h-2 rounded-full bg-[#FF0055] animate-ping"></span>
-                <span>Соревновательный 1v1 Киберспорт</span>
-            </div>
-
+        <!-- Hero Content (Centered) -->
+        <div class="relative z-10 p-8 sm:p-14 md:p-16 max-w-3xl mx-auto text-center flex flex-col items-center">
             <!-- Big Title -->
             <h1 class="text-3xl sm:text-5xl md:text-6xl font-cyber font-black text-white tracking-wider uppercase leading-none">
                 ПОИСК МАТЧА <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF0055] via-[#FF2A6D] to-white">1 НА 1</span>
             </h1>
-            <p class="text-neutral-300 text-sm sm:text-base mt-4 max-w-xl leading-relaxed">
+            <p class="text-neutral-300 text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
                 Сражайтесь за рейтинговые очки Elo на соревновательных серверах CS2. Полноценная система вычеркивания карт (Map Veto), автоподключение и статистика.
             </p>
 
-            <!-- Search Action Area -->
-            <div class="mt-8">
+            <!-- Search Action Area (Centered) -->
+            <div class="mt-8 w-full">
                 @if(! $inQueue && ! $matchFound)
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <!-- Play 1v1 Matchmaking Button -->
                         <button 
                             wire:click="startQueue" 
-                            class="px-8 py-5 bg-gradient-to-r from-[#FF0055] via-[#FF1A75] to-[#E1066A] hover:brightness-110 text-white font-cyber font-extrabold text-lg tracking-widest uppercase rounded-2xl shadow-[0_0_30px_rgba(255,0,85,0.6)] transition-all transform active:scale-95 flex items-center justify-center space-x-3 cursor-pointer border border-white/20">
+                            class="w-full sm:w-auto px-8 py-5 bg-gradient-to-r from-[#FF0055] via-[#FF1A75] to-[#E1066A] hover:brightness-110 text-white font-cyber font-extrabold text-lg tracking-widest uppercase rounded-2xl shadow-[0_0_30px_rgba(255,0,85,0.6)] transition-all transform active:scale-95 flex items-center justify-center space-x-3 cursor-pointer border border-white/20">
                             <svg class="w-6 h-6 fill-current animate-pulse" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
                             </svg>
@@ -110,7 +104,7 @@
                         <!-- Instant Bot Match (For Testing & Defense) -->
                         <button 
                             wire:click="startInstantBotMatch" 
-                            class="px-6 py-5 bg-[#120817]/90 hover:bg-[#1A0D22] text-neutral-200 hover:text-white font-faceit font-bold text-base tracking-wider uppercase rounded-2xl border border-[#FF0055]/40 hover:border-[#FF0055] shadow-lg transition flex items-center justify-center space-x-2.5 cursor-pointer">
+                            class="w-full sm:w-auto px-6 py-5 bg-[#120817]/90 hover:bg-[#1A0D22] text-neutral-200 hover:text-white font-faceit font-bold text-base tracking-wider uppercase rounded-2xl border border-[#FF0055]/40 hover:border-[#FF0055] shadow-lg transition flex items-center justify-center space-x-2.5 cursor-pointer">
                             <svg class="w-5 h-5 text-[#FF0055]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -118,9 +112,9 @@
                         </button>
                     </div>
                 @elseif($inQueue && ! $matchFound)
-                    <!-- Queue In Progress Box -->
-                    <div class="bg-[#120817]/95 border-2 border-[#FF0055] rounded-2xl p-6 shadow-[0_0_35px_rgba(255,0,85,0.4)] max-w-md">
-                        <div class="flex items-center space-x-4 mb-4">
+                    <!-- Queue In Progress Box (Centered) -->
+                    <div class="bg-[#120817]/95 border-2 border-[#FF0055] rounded-2xl p-6 shadow-[0_0_35px_rgba(255,0,85,0.4)] max-w-md mx-auto">
+                        <div class="flex items-center justify-center space-x-4 mb-4">
                             <div class="relative w-12 h-12 flex items-center justify-center">
                                 <div class="absolute inset-0 rounded-full border-3 border-[#FF0055]/30 border-t-[#FF0055] animate-spin shadow-[0_0_15px_#FF0055]"></div>
                                 <svg class="w-6 h-6 text-[#FF0055]" fill="currentColor" viewBox="0 0 20 20">
@@ -135,11 +129,11 @@
                             </div>
                         </div>
 
-                        <p class="text-xs text-neutral-400 mb-4 font-mono">
+                        <p class="text-xs text-neutral-400 mb-4 font-mono text-center">
                             Подбор игрока с близким рейтингом (~{{ $user->elo }} ELO)...
                         </p>
 
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center justify-center space-x-3">
                             <button 
                                 wire:click="cancelQueue" 
                                 class="flex-1 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white rounded-xl text-xs font-faceit font-bold uppercase tracking-wider border border-neutral-700 transition cursor-pointer">
