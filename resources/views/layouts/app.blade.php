@@ -121,9 +121,8 @@
                     Лидерборд
                 </a>
                 @auth
-                <a href="{{ route('server.settings') }}" class="px-4 py-2 rounded-lg text-sm font-faceit font-bold uppercase tracking-wider flex items-center space-x-2 {{ request()->routeIs('server.settings') ? 'text-white bg-[#FF0055]/20 border border-[#FF0055] shadow-[0_0_15px_rgba(255,0,85,0.35)]' : 'text-neutral-300 hover:text-white hover:bg-[#FF0055]/10' }} transition">
-                    <span class="w-2 h-2 rounded-full {{ config('services.cs2.server_ip') ? 'bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse' : 'bg-neutral-500' }}"></span>
-                    <span>Сервер</span>
+                <a href="{{ route('server.settings') }}" class="px-4 py-2 rounded-lg text-sm font-faceit font-bold uppercase tracking-wider {{ request()->routeIs('server.settings') ? 'text-white bg-[#FF0055]/20 border border-[#FF0055] shadow-[0_0_15px_rgba(255,0,85,0.35)]' : 'text-neutral-300 hover:text-white hover:bg-[#FF0055]/10' }} transition">
+                    Сервер
                 </a>
                 @endauth
             </nav>

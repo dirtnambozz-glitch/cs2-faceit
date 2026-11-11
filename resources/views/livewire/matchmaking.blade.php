@@ -1,6 +1,6 @@
 <div wire:poll.1000ms="pollQueue">
     <!-- User Quick Stats Bar (Cyberpunk HUD Cards) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <!-- ELO Card -->
         <div class="relative bg-[#120817] border border-[#FF0055]/30 hover:border-[#FF0055] rounded-2xl p-5 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition group overflow-hidden">
             <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-[#FF0055]/10 rounded-full blur-xl pointer-events-none group-hover:bg-[#FF0055]/20 transition"></div>
@@ -42,22 +42,6 @@
             </div>
             <p class="text-3xl font-cyber font-bold text-white mt-1 group-hover:text-[#FF2A6D] transition-colors">{{ $user->matches_count }}</p>
             <span class="text-[10px] font-mono text-neutral-400">Total CS2 Duels</span>
-        </div>
-
-        <!-- Server Status Card -->
-        <div class="relative bg-[#120817] border border-[#FF0055]/30 hover:border-[#FF0055] rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition group overflow-hidden">
-            <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-[#FF0055]/10 rounded-full blur-xl pointer-events-none group-hover:bg-[#FF0055]/20 transition"></div>
-            <div class="flex items-center space-x-1.5 text-[11px] font-mono uppercase tracking-wider text-[#FF0055]">
-                <span class="inline-block w-1.5 h-1.5 bg-[#FF0055] rounded-full"></span>
-                <span>Статус сервера</span>
-            </div>
-            <div class="flex items-center space-x-2.5 mt-2">
-                <span class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse"></span>
-                <span class="text-sm font-faceit font-bold text-emerald-400 uppercase tracking-wide">
-                    UP FaceIt CS2 Онлайн
-                </span>
-            </div>
-            <p class="text-[11px] font-mono text-neutral-400 mt-1">89.248.236.141:27574</p>
         </div>
     </div>
 
