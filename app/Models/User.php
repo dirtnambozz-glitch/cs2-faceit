@@ -25,6 +25,7 @@ class User extends Authenticatable
         'losses_count',
         'avatar',
         'is_bot',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -38,12 +39,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_bot' => 'boolean',
+            'is_admin' => 'boolean',
             'elo' => 'integer',
             'level' => 'integer',
             'matches_count' => 'integer',
             'wins_count' => 'integer',
             'losses_count' => 'integer',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return (bool) ($this->is_admin || strtolower($this->name) === 'defense');
     }
 
     public function updateLevelFromElo(): void

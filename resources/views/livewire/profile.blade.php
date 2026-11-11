@@ -19,6 +19,9 @@
                     <h1 class="text-3xl sm:text-4xl font-cyber font-black text-white tracking-wide">
                         {{ $user->name }}
                     </h1>
+                    @if($user->isAdmin())
+                        <span class="inline-block text-[10px] uppercase font-mono font-bold bg-[#FF0055] text-white px-2.5 py-0.5 rounded-md shadow-[0_0_10px_rgba(255,0,85,0.5)] w-max mx-auto sm:mx-0">CREATOR / ADMIN</span>
+                    @endif
                     @if($user->is_bot)
                         <span class="inline-block text-[10px] uppercase font-mono font-bold bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40 px-2 py-0.5 rounded w-max mx-auto sm:mx-0">AI BOT</span>
                     @endif

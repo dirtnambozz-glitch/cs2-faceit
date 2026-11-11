@@ -18,6 +18,10 @@ class ServerSettings extends Component
 
     public function mount(): void
     {
+        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+            abort(403, 'Доступ к серверу разрешен только создателю и администраторам.');
+        }
+
         $this->serverIp = config('services.cs2.server_ip', '89.248.236.141');
         $this->serverPort = (int) config('services.cs2.server_port', 27574);
         $this->rconPassword = config('services.cs2.rcon_password', '');

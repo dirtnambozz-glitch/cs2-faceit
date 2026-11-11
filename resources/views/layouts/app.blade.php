@@ -121,9 +121,12 @@
                     Лидерборд
                 </a>
                 @auth
-                <a href="{{ route('server.settings') }}" class="px-4 py-2 rounded-lg text-sm font-faceit font-bold uppercase tracking-wider {{ request()->routeIs('server.settings') ? 'text-white bg-[#FF0055]/20 border border-[#FF0055] shadow-[0_0_15px_rgba(255,0,85,0.35)]' : 'text-neutral-300 hover:text-white hover:bg-[#FF0055]/10' }} transition">
-                    Сервер
+                @if(auth()->user()->isAdmin())
+                <a href="{{ route('server.settings') }}" class="px-4 py-2 rounded-lg text-sm font-faceit font-bold uppercase tracking-wider flex items-center space-x-1.5 {{ request()->routeIs('server.settings') ? 'text-white bg-[#FF0055]/20 border border-[#FF0055] shadow-[0_0_15px_rgba(255,0,85,0.35)]' : 'text-neutral-300 hover:text-white hover:bg-[#FF0055]/10' }} transition">
+                    <svg class="w-3.5 h-3.5 text-[#FF0055]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span>Сервер</span>
                 </a>
+                @endif
                 @endauth
             </nav>
         </div>
@@ -140,7 +143,12 @@
                 <a href="{{ route('profile') }}" class="flex items-center space-x-3 bg-[#120817] border border-[#FF0055]/30 rounded-xl px-3.5 py-1.5 hover:border-[#FF0055] hover:shadow-[0_0_15px_rgba(255,0,85,0.35)] transition group">
                     <img src="{{ auth()->user()->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed='.auth()->user()->name }}" class="w-8 h-8 rounded-full bg-neutral-900 border border-[#FF0055]/40" alt="">
                     <div class="hidden sm:block text-right">
-                        <div class="text-xs font-semibold text-white leading-tight group-hover:text-[#FF0055] transition-colors">{{ auth()->user()->name }}</div>
+                        <div class="text-xs font-semibold text-white leading-tight group-hover:text-[#FF0055] transition-colors flex items-center justify-end space-x-1.5">
+                            <span>{{ auth()->user()->name }}</span>
+                            @if(auth()->user()->isAdmin())
+                                <span class="text-[9px] font-mono font-bold bg-[#FF0055] text-white px-1.5 py-0.5 rounded shadow">ADMIN</span>
+                            @endif
+                        </div>
                         <div class="text-[11px] font-mono text-neutral-400">{{ auth()->user()->elo }} <span class="text-[#FF0055] font-bold">ELO</span></div>
                     </div>
                     <div class="w-7 h-7 rounded-lg flex items-center justify-center font-faceit font-bold text-sm bg-gradient-to-br from-[#FF0055] to-[#E1066A] text-white shadow-[0_0_8px_rgba(255,0,85,0.5)]">

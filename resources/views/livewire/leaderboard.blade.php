@@ -81,6 +81,9 @@
                                             <a href="{{ route('profile', ['id' => $u->id]) }}" class="font-cyber font-bold text-white hover:text-[#FF2A6D] transition-colors {{ auth()->id() === $u->id ? 'text-[#FF2A6D]' : '' }}">
                                                 {{ $u->name }}
                                             </a>
+                                            @if($u->isAdmin())
+                                                <span class="text-[9px] uppercase font-mono font-bold bg-[#FF0055] text-white px-1.5 py-0.5 rounded shadow">ADMIN</span>
+                                            @endif
                                             @if(auth()->id() === $u->id)
                                                 <span class="text-[9px] uppercase font-mono font-bold bg-[#FF0055] text-white px-1.5 py-0.5 rounded">ВЫ</span>
                                             @endif
