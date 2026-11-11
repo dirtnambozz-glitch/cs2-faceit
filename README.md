@@ -1,6 +1,8 @@
-# 🏆 RIVALIS — CS2 1v1 Matchmaking Platform
 
-Веб-платформа соревновательного матчмейкинга в Counter-Strike 2 в формате 1v1 (RIVALIS). Разработана в рамках университетской практики (УП).
+#  RIVALIS — CS2 1v1 Matchmaking Platform
+
+
+Веб-платформа соревновательного матчмейкинга в Counter-Strike 2 в формате 1v1 (RIVALIS). 
 
 🌐 **Живая демонстрация проекта 24/7:** [http://45.140.19.240](http://45.140.19.240)
 
@@ -40,7 +42,7 @@
 
 ---
 
-## 🛠 Технологический стек
+## Технологический стек
 
 * **Бэкенд**: PHP 8.3, Laravel 13, Livewire 4
 * **Фронтенд**: Blade, Tailwind CSS (CDN), Alpine.js
@@ -49,38 +51,6 @@
 * **Протоколы**: Source RCON Protocol, Steam OpenID 2.0, Webhooks
 * **Хостинг**: Linux Ubuntu 24.04 LTS (VPS)
 
----
 
-## 🚀 Установка и локальный запуск
-
-1. Склонируйте репозиторий:
-   ```bash
-   git clone https://github.com/dirtnambozz-glitch/cs2-faceit.git
-   cd cs2-faceit
-   ```
-
-2. Установите зависимости:
-   ```bash
-   composer install
-   ```
-
-3. Настройте файл окружения:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. Запустите миграции и сидеры:
-   ```bash
-   php artisan migrate --seed
-   ```
-
-5. Запустите локальный сервер:
-   ```bash
-   php artisan serve
-   ```
-   Сайт будет доступен по адресу `http://127.0.0.1:8000`.
-
----
 
 Разработано для защиты университетской практики (УП).
