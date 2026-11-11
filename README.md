@@ -51,12 +51,6 @@
 * **Протоколы**: Source RCON Protocol, Steam OpenID 2.0, Webhooks
 * **Хостинг**: Linux Ubuntu 24.04 LTS (VPS)
 
----
 
-
-   ```
-   Сайт будет доступен по адресу `http://127.0.0.1:8000`.
-
----
 
 
