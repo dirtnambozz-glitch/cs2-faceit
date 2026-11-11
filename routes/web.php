@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', Matchmaking::class)->name('home');
     Route::get('/match/{uuid}', MatchLobby::class)->name('match.lobby');
     Route::get('/server', ServerSettings::class)->name('server.settings');
+    Route::get('/admin', ServerSettings::class)->name('admin.dashboard');
 });
 
 // API webhook (no CSRF)
