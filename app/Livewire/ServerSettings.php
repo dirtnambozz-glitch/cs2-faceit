@@ -36,7 +36,8 @@ class ServerSettings extends Component
 
         if ($rcon->connect()) {
             $this->isConnected = true;
-            $this->connectionStatus = 'Успешно! RCON подключен к серверу.';
+            $this->connectionStatus = 'Успешно! RCON подключен к серверу (MatchZy webhook настроен).';
+            $rcon->execute('matchzy_remote_log_url "http://45.140.19.240/api/matchzy/events"');
             $output = $rcon->execute('status');
             $this->serverConsoleOutput = $output ?: 'Сервер ответил (команда выполнена).';
             $rcon->disconnect();

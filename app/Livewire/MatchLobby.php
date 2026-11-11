@@ -158,6 +158,7 @@ class MatchLobby extends Component
         $rcon = new RconService();
         if ($rcon->connect()) {
             $rcon->execute("sv_password \"{$password}\"");
+            $rcon->execute("matchzy_remote_log_url \"http://45.140.19.240/api/matchzy/events\"");
             $rcon->execute("changelevel {$mapCode}");
             $this->rconSuccess = true;
             $this->rconStatusMessage = "Карта на CS2 сервере успешно изменена на {$mapCode}!";
