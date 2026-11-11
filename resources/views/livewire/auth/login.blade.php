@@ -3,10 +3,10 @@
         <!-- Logo & Header -->
         <div class="text-center mb-8">
             <div class="w-12 h-12 bg-faceit-orange flex items-center justify-center rounded-xl font-faceit font-bold text-3xl text-black shadow-lg shadow-faceit-orange/25 mx-auto mb-3">
-                F
+                R
             </div>
             <h1 class="text-3xl font-faceit font-bold text-white uppercase tracking-wider">
-                Вход на платформу
+                RIVALIS
             </h1>
             <p class="text-neutral-400 text-xs mt-1">
                 Соревновательный матчмейкинг CS2 1v1

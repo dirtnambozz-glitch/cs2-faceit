@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'FACEIT CS2 — 1v1 Matchmaking' }}</title>
+    <title>{{ $title ?? 'RIVALIS — CS2 1v1 Matchmaking' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,8 +37,8 @@
         <!-- Logo -->
         <div class="flex items-center space-x-6">
             <a href="{{ auth()->check() ? route('home') : route('leaderboard') }}" class="flex items-center space-x-2">
-                <div class="w-9 h-9 bg-[#FF5500] flex items-center justify-center rounded font-faceit font-bold text-2xl text-black">F</div>
-                <span class="font-faceit text-xl font-bold text-white">FACEIT <span class="text-[#FF5500]">CS2</span></span>
+                <div class="w-9 h-9 bg-[#FF5500] flex items-center justify-center rounded font-faceit font-bold text-2xl text-black">R</div>
+                <span class="font-faceit text-xl font-bold text-white tracking-wide">RIVALIS <span class="text-[#FF5500]">CS2</span></span>
                 <span class="text-[10px] uppercase tracking-widest text-neutral-400 bg-neutral-800 px-1.5 py-0.5 rounded">1v1</span>
             </a>
             <nav class="hidden md:flex items-center space-x-1">
@@ -99,7 +99,7 @@
 </main>
 
 <footer class="border-t border-faceit-border/50 py-6 text-center text-xs text-neutral-500">
-    CS2 1v1 Matchmaking Platform — Учебная практика (УП) — Сервер: UP FaceIt (89.248.236.141:27574)
+    RIVALIS CS2 1v1 Matchmaking Platform — Учебная практика (УП) — Сервер: UP FaceIt (89.248.236.141:27574)
 </footer>
 
 @livewireScripts
