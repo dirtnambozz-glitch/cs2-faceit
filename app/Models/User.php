@@ -26,6 +26,9 @@ class User extends Authenticatable
         'avatar',
         'is_bot',
         'is_admin',
+        'banned_until',
+        'ban_reason',
+        'warnings_count',
     ];
 
     protected $hidden = [
@@ -40,12 +43,36 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_bot' => 'boolean',
             'is_admin' => 'boolean',
+            'banned_until' => 'datetime',
+            'warnings_count' => 'integer',
             'elo' => 'integer',
             'level' => 'integer',
             'matches_count' => 'integer',
             'wins_count' => 'integer',
             'losses_count' => 'integer',
         ];
+    }
+
+    public function isBanned(): bool
+    {
+        return $this->banned_until !== null && $this->banned_until->isFuture();
+    }
+
+    public function banRemainingSeconds(): int
+    {
+        if (! $this->isBanned()) {
+            return 0;
+        }
+
+        return max(0, (int) now()->diffInSeconds($this->banned_until, false));
+    }
+
+    public function applyBan(int $minutes, string $reason): void
+    {
+        $this->banned_until = now()->addMinutes($minutes);
+        $this->ban_reason = $reason;
+        $this->warnings_count = ($this->warnings_count ?? 0) + 1;
+        $this->save();
     }
 
     public function isAdmin(): bool

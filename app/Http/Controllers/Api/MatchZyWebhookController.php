@@ -32,6 +32,9 @@ class MatchZyWebhookController extends Controller
 
         Log::info("MatchZy Webhook [{$event}]: Matched to GameMatch #{$match->id} (UUID: {$match->uuid}, Status: {$match->status})");
 
+        // Sync player online / connection status from MatchZy events
+        $this->syncPlayerConnectionStatus($match, $event, $payload);
+
         // 1. Live Match Start
         if (in_array($event, ['going_live', 'match_start'])) {
             if ($match->status !== 'finished') {
@@ -103,6 +106,80 @@ class MatchZyWebhookController extends Controller
         }
 
         return response()->json(['status' => 'ok']);
+    }
+
+    /**
+     * Synchronize player connection / leaver status and timeouts.
+     */
+    private function syncPlayerConnectionStatus(GameMatch $match, string $event, array $payload): void
+    {
+        if ($match->status === 'finished') {
+            return;
+        }
+
+        $p1Steam = (string) ($match->player1 ? $match->player1->steam_id : '');
+        $p2Steam = (string) ($match->player2 ? $match->player2->steam_id : '');
+        $p1Name = strtolower((string) ($match->player1 ? $match->player1->name : ''));
+        $p2Name = strtolower((string) ($match->player2 ? $match->player2->name : ''));
+
+        // Handle disconnect event
+        if ($event === 'player_disconnect') {
+            $discSteam = (string) ($payload['player']['steamid'] ?? $payload['steamid'] ?? '');
+            $discName = strtolower((string) ($payload['player']['name'] ?? $payload['name'] ?? ''));
+
+            if (($p1Steam && $discSteam === $p1Steam) || ($p1Name && $discName === $p1Name)) {
+                $match->player1_connected = false;
+                $match->connect_deadline = now()->addMinutes(3); // 3-minute grace period to reconnect
+                $match->save();
+                Log::warning("Player 1 ({$match->player1?->name}) disconnected from server! 3-minute reconnect timer started.");
+            }
+
+            if (($p2Steam && $discSteam === $p2Steam) || ($p2Name && $discName === $p2Name)) {
+                $match->player2_connected = false;
+                $match->connect_deadline = now()->addMinutes(3); // 3-minute grace period to reconnect
+                $match->save();
+                Log::warning("Player 2 ({$match->player2?->name}) disconnected from server! 3-minute reconnect timer started.");
+            }
+            return;
+        }
+
+        // For all other events (connect, round_end, going_live, kill, etc.):
+        $activeSteams = [];
+        foreach (['team1', 'team2'] as $t) {
+            if (!empty($payload[$t]['players']) && is_array($payload[$t]['players'])) {
+                foreach ($payload[$t]['players'] as $p) {
+                    if (!empty($p['steamid'])) $activeSteams[] = (string) $p['steamid'];
+                }
+            }
+        }
+        if (!empty($payload['player']['steamid'])) $activeSteams[] = (string) $payload['player']['steamid'];
+        if (!empty($payload['attacker']['steamid'])) $activeSteams[] = (string) $payload['attacker']['steamid'];
+        $activeSteams = array_unique(array_filter($activeSteams));
+
+        $changed = false;
+        if ($p1Steam && in_array($p1Steam, $activeSteams)) {
+            if (!$match->player1_connected) {
+                $match->player1_connected = true;
+                $changed = true;
+            }
+        }
+        if ($p2Steam && in_array($p2Steam, $activeSteams)) {
+            if (!$match->player2_connected) {
+                $match->player2_connected = true;
+                $changed = true;
+            }
+        }
+
+        // If player 2 is bot
+        if ($match->player2 && $match->player2->is_bot && !$match->player2_connected) {
+            $match->player2_connected = true;
+            $changed = true;
+        }
+
+        if ($changed) {
+            $match->save();
+            Log::info("Match #{$match->id} player connection updated: P1={$match->player1_connected}, P2={$match->player2_connected}");
+        }
     }
 
     /**

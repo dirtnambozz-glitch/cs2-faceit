@@ -18,8 +18,6 @@ class MatchLobby extends Component
     public string $uuid;
     public ?GameMatch $match = null;
 
-    public int $scoreP1 = 13;
-    public int $scoreP2 = 9;
     public string $rconStatusMessage = '';
     public bool $rconSuccess = false;
 
@@ -31,13 +29,61 @@ class MatchLobby extends Component
 
     public function loadMatch(): void
     {
-        $this->match = GameMatch::with(['player1', 'player2', 'map', 'vetoes.map'])
+        $this->match = GameMatch::with(['player1', 'player2', 'map', 'vetoes.map', 'forfeitedUser', 'winner'])
             ->where('uuid', $this->uuid)
             ->firstOrFail();
+
+        // Check connect timeout if match is ready or in progress
+        if (in_array($this->match->status, ['ready', 'in_progress']) && $this->match->connect_deadline) {
+            $this->checkConnectTimeout();
+        }
 
         // If current turn is bot and in voting status, perform bot turn
         if ($this->match->status === 'voting' && $this->match->currentTurnPlayer && $this->match->currentTurnPlayer->is_bot) {
             $this->performBotBan();
+        }
+    }
+
+    private function checkConnectTimeout(): void
+    {
+        if ($this->match->status === 'finished') {
+            return;
+        }
+
+        // Check if deadline has passed
+        if ($this->match->connectRemainingSeconds() <= 0) {
+            $p1 = $this->match->player1;
+            $p2 = $this->match->player2;
+
+            $p1Conn = (bool) $this->match->player1_connected;
+            $p2Conn = (bool) $this->match->player2_connected;
+
+            // If player 2 is a bot, treat bot as always connected
+            if ($p2 && $p2->is_bot) {
+                $p2Conn = true;
+            }
+
+            if ($p1Conn && ! $p2Conn && $p2) {
+                $this->match->forfeitPlayer($p2, 'Не зашел на CS2 сервер в течение отведенного времени (5 мин)');
+                $this->match->refresh();
+                return;
+            }
+
+            if ($p2Conn && ! $p1Conn && $p1) {
+                $this->match->forfeitPlayer($p1, 'Не зашел на CS2 сервер в течение отведенного времени (5 мин)');
+                $this->match->refresh();
+                return;
+            }
+
+            if (! $p1Conn && ! $p2Conn) {
+                // Neither connected: cancel match
+                $this->match->update([
+                    'status' => 'finished',
+                    'finished_at' => now(),
+                ]);
+                $this->match->refresh();
+                return;
+            }
         }
     }
 
@@ -147,6 +193,9 @@ class MatchLobby extends Component
         $this->match->update([
             'map_id' => $finalMap->id,
             'status' => 'ready',
+            'connect_deadline' => now()->addMinutes(5),
+            'player1_connected' => false,
+            'player2_connected' => false,
         ]);
 
         $this->sendRconSetup($finalMap->code, $this->match->server_password);
@@ -174,61 +223,6 @@ class MatchLobby extends Component
         if ($this->match && $this->match->map) {
             $this->sendRconSetup($this->match->map->code, $this->match->server_password);
         }
-    }
-
-    public function submitScore(): void
-    {
-        $this->loadMatch();
-        if ($this->match->status === 'finished') {
-            return;
-        }
-
-        $winnerId = ($this->scoreP1 > $this->scoreP2)
-            ? $this->match->player1_id
-            : $this->match->player2_id;
-
-        $scoreP1Normalized = ($this->scoreP1 > $this->scoreP2) ? 1.0 : (($this->scoreP1 === $this->scoreP2) ? 0.5 : 0.0);
-
-        $p1 = $this->match->player1;
-        $p2 = $this->match->player2;
-
-        [$eloChangeP1, $eloChangeP2] = EloService::calculateMatchElo(
-            $p1->elo,
-            $p2->elo,
-            $scoreP1Normalized
-        );
-
-        // Update player 1
-        $p1->elo = max(100, $p1->elo + $eloChangeP1);
-        $p1->matches_count++;
-        if ($scoreP1Normalized == 1.0) {
-            $p1->wins_count++;
-        } else {
-            $p1->losses_count++;
-        }
-        $p1->updateLevelFromElo();
-
-        // Update player 2
-        $p2->elo = max(100, $p2->elo + $eloChangeP2);
-        $p2->matches_count++;
-        if ($scoreP1Normalized == 0.0) {
-            $p2->wins_count++;
-        } else {
-            $p2->losses_count++;
-        }
-        $p2->updateLevelFromElo();
-
-        $this->match->update([
-            'status' => 'finished',
-            'score_player1' => $this->scoreP1,
-            'score_player2' => $this->scoreP2,
-            'winner_id' => $winnerId,
-            'elo_change_p1' => $eloChangeP1,
-            'elo_change_p2' => $eloChangeP2,
-            'finished_at' => now(),
-        ]);
-
-        $this->loadMatch();
     }
 
     public function render()

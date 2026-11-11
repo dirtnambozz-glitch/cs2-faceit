@@ -1,4 +1,4 @@
-<div wire:poll.2000ms="loadMatch">
+<div wire:poll.1000ms="loadMatch">
     <!-- Match Room Top Header (Cyber Versus HUD) -->
     <div class="relative bg-[#120817] border border-[#FF0055]/40 rounded-3xl p-6 sm:p-8 mb-8 shadow-[0_0_35px_rgba(255,0,85,0.25)] overflow-hidden">
         <!-- Background Ambient Neon Glow -->
@@ -186,6 +186,81 @@
                     </div>
                 </div>
 
+                <!-- FACEIT-STYLE CONNECT & LEAVER TIMEOUT HUD -->
+                <div class="bg-[#08040A] border-2 {{ $match->connectRemainingSeconds() <= 60 && !$match->player1_connected && !$match->player2_connected ? 'border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.4)]' : 'border-[#FF0055]/50 shadow-[0_0_25px_rgba(255,0,85,0.25)]' }} rounded-3xl p-6 mb-6 text-left">
+                    <div class="flex flex-col sm:flex-row items-center justify-between pb-4 mb-4 border-b border-white/10 gap-3">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="w-3 h-3 rounded-full {{ $match->connectRemainingSeconds() > 0 ? 'bg-amber-400 animate-ping' : 'bg-red-500' }}"></span>
+                            <span class="font-cyber font-black text-sm uppercase tracking-wider text-white">
+                                ТАЙМЕР ПОДКЛЮЧЕНИЯ И ЗАЩИТА ОТ ЛИВЕРОВ
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-mono text-neutral-400 uppercase">ОСТАЛОСЬ:</span>
+                            <span class="font-cyber font-black text-2xl {{ $match->connectRemainingSeconds() <= 60 ? 'text-red-500 animate-pulse' : 'text-amber-400' }}">
+                                {{ sprintf('%02d:%02d', floor($match->connectRemainingSeconds() / 60), $match->connectRemainingSeconds() % 60) }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Players Connection Badges -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <!-- Player 1 Status -->
+                        <div class="bg-[#120817] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-10 h-10 rounded-xl border border-white/20 object-cover" alt="P1">
+                                <div>
+                                    <p class="font-cyber font-bold text-sm text-white">{{ $match->player1->name }}</p>
+                                    <p class="text-[10px] font-mono text-neutral-400">Слот 1</p>
+                                </div>
+                            </div>
+                            @if($match->player1_connected)
+                                <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                    <span>НА СЕРВЕРЕ</span>
+                                </span>
+                            @else
+                                <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 animate-pulse">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                    <span>ОЖИДАЕТСЯ...</span>
+                                </span>
+                            @endif
+                        </div>
+
+                        <!-- Player 2 Status -->
+                        @php
+                            $isP2Bot = $match->player2 && $match->player2->is_bot;
+                            $p2Connected = $match->player2_connected || $isP2Bot;
+                        @endphp
+                        <div class="bg-[#120817] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'bot') }}" class="w-10 h-10 rounded-xl border border-white/20 object-cover" alt="P2">
+                                <div>
+                                    <p class="font-cyber font-bold text-sm text-white">{{ $match->player2->name ?? 'Оппонент' }}</p>
+                                    <p class="text-[10px] font-mono text-neutral-400">Слот 2</p>
+                                </div>
+                            </div>
+                            @if($p2Connected)
+                                <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                    <span>НА СЕРВЕРЕ</span>
+                                </span>
+                            @else
+                                <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 animate-pulse">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                    <span>ОЖИДАЕТСЯ...</span>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Warning note -->
+                    <div class="p-3 bg-red-950/40 border border-red-500/30 rounded-xl text-[11px] font-mono text-red-200 flex items-start space-x-2">
+                        <span class="text-red-400 font-bold shrink-0">⚠️ ШТРАФ:</span>
+                        <span>Если игрок не подключится к CS2 до истечения таймера (или выйдет из матча и не вернется за 3 минуты), ему автоматически присваивается поражение (техлуз), вычитается <strong>25 ELO</strong> и выдается бан поиска матчей.</span>
+                    </div>
+                </div>
+
                 <!-- RCON Status Alert -->
                 @if($rconStatusMessage)
                     <div class="mb-5 p-3.5 rounded-2xl flex items-center justify-between text-xs {{ $rconSuccess ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : 'bg-amber-500/10 border border-amber-500/30 text-amber-400' }}">
@@ -269,32 +344,21 @@
                     </div>
                 </div>
 
-                <!-- Simulation / Score Entry Form for Testing & Defense -->
-                <div class="bg-[#08040A] border border-[#FF0055]/30 rounded-2xl p-6 text-left">
-                    <div class="flex items-center justify-between mb-4 pb-2 border-b border-[#FF0055]/20">
-                        <span class="text-xs font-cyber font-bold uppercase tracking-wider text-white">
-                            ФИКСАЦИЯ РЕЗУЛЬТАТА // ТЕСТИРОВАНИЕ УП
-                        </span>
-                        <span class="text-[11px] font-mono text-[#FF0055]">Авто-расчет ELO</span>
+                <!-- MatchZy Automatic Telemetry Box (Manual score box removed) -->
+                <div class="bg-[#08040A] border border-emerald-500/30 rounded-2xl p-6 text-left shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-emerald-500/20">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></span>
+                            <span class="text-xs font-cyber font-bold uppercase tracking-wider text-emerald-300">
+                                АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С СЕРВЕРОМ // MATCHZY
+                            </span>
+                        </div>
+                        <span class="text-[11px] font-mono text-emerald-400">ONLINE</span>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-center gap-4">
-                        <div class="flex items-center space-x-3 w-full sm:w-auto">
-                            <span class="text-xs font-semibold text-neutral-300">{{ $match->player1->name }}:</span>
-                            <input type="number" wire:model="scoreP1" min="0" max="30" class="w-16 bg-[#120817] border border-[#FF0055]/40 rounded-xl px-2 py-2 text-center font-cyber font-bold text-white text-lg focus:outline-none focus:border-[#FF0055]">
-                            <span class="text-[#FF0055] font-bold text-xl">:</span>
-                            <input type="number" wire:model="scoreP2" min="0" max="30" class="w-16 bg-[#120817] border border-[#FF0055]/40 rounded-xl px-2 py-2 text-center font-cyber font-bold text-white text-lg focus:outline-none focus:border-[#FF0055]">
-                            <span class="text-xs font-semibold text-neutral-300">{{ $match->player2->name ?? 'Бот' }}:</span>
-                        </div>
-
-                        <div class="flex-1 flex justify-end w-full sm:w-auto">
-                            <button 
-                                wire:click="submitScore" 
-                                class="w-full sm:w-auto px-6 py-3 bg-[#FF0055] hover:bg-[#FF2A6D] text-white font-cyber font-bold text-sm uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(255,0,85,0.4)] cursor-pointer">
-                                Завершить матч и рассчитать Elo
-                            </button>
-                        </div>
-                    </div>
+                    <p class="text-xs text-neutral-300 font-mono leading-relaxed">
+                        Сервер игры UP FaceIt самостоятельно отправляет статистику каждого раунда и итоговый результат на сайт. После завершения игры победителю и проигравшему автоматически начисляются очки Elo.
+                    </p>
                 </div>
             </div>
         </div>
@@ -306,6 +370,13 @@
             $myEloChange = ($match->player1_id === auth()->id()) ? $match->elo_change_p1 : $match->elo_change_p2;
         @endphp
         <div class="bg-[#120817] border-2 {{ $isWinner ? 'border-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.3)]' : 'border-[#FF0055] shadow-[0_0_40px_rgba(255,0,85,0.3)]' }} rounded-3xl p-10 mb-8 text-center relative overflow-hidden">
+            @if($match->forfeited_user_id)
+                <div class="mb-4 inline-flex items-center space-x-2 px-4 py-1.5 bg-red-950/80 border border-red-500/60 rounded-full text-red-300 text-xs font-mono uppercase tracking-wider">
+                    <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <span>ТЕХНИЧЕСКОЕ ПОРАЖЕНИЕ (FORFEIT) // НЕЯВКА ИЛИ ВЫХОД С СЕРВЕРА</span>
+                </div>
+            @endif
+
             <div class="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-4 {{ $isWinner ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500' : 'bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]' }}">
                 @if($isWinner)
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,6 +392,12 @@
             <h2 class="text-4xl sm:text-6xl font-cyber font-black uppercase tracking-wider {{ $isWinner ? 'text-emerald-400' : 'text-[#FF0055]' }}">
                 {{ $isWinner ? 'ПОБЕДА!' : 'ПОРАЖЕНИЕ' }}
             </h2>
+
+            @if($match->forfeited_user_id)
+                <p class="text-sm font-mono text-neutral-300 mt-2">
+                    {{ $match->forfeited_user_id === auth()->id() ? 'Вы получили техническое поражение за неявку или выход с сервера.' : 'Соперник не явился на сервер в течение 5 минут. Победа присуждена вам!' }}
+                </p>
+            @endif
 
             <div class="text-4xl font-cyber font-bold text-white mt-3 mb-5">
                 {{ $match->score_player1 }} — {{ $match->score_player2 }}

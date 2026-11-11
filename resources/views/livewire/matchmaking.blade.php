@@ -1,4 +1,33 @@
 <div wire:poll.1000ms="pollQueue">
+    <!-- Matchmaking Ban Alert Banner -->
+    @if($user && $user->isBanned())
+        <div class="mb-6 p-5 bg-red-950/90 border-2 border-red-500 rounded-3xl shadow-[0_0_35px_rgba(239,68,68,0.5)] flex flex-col sm:flex-row items-center justify-between gap-4 animate-pulse">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center shrink-0">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-cyber font-bold text-red-200 uppercase tracking-wider">
+                        БЛОКИРОВКА МАТЧМЕЙКИНГА (COOLDOWN)
+                    </h3>
+                    <p class="text-xs text-red-300 font-mono mt-0.5">
+                        Причина: <span class="text-white font-semibold">{{ $user->ban_reason ?? 'Нарушение правил очереди / лив' }}</span>
+                    </p>
+                    <p class="text-[11px] text-neutral-400 mt-1">
+                        Предупреждений: <span class="text-amber-400 font-bold">{{ $user->warnings_count }}</span> | Разблокировка через: <span class="text-white font-mono font-bold">{{ sprintf('%02d:%02d', floor($user->banRemainingSeconds() / 60), $user->banRemainingSeconds() % 60) }}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="px-3.5 py-1.5 rounded-xl bg-red-900/60 border border-red-500/60 text-red-200 text-xs font-mono font-bold">
+                    До {{ $user->banned_until->format('H:i:s d.m.Y') }}
+                </span>
+            </div>
+        </div>
+    @endif
+
     <!-- User Quick Stats Bar (Cyberpunk HUD Cards) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <!-- ELO Card -->
@@ -135,32 +164,79 @@
         </div>
     </div>
 
-    <!-- MATCH FOUND MODAL POPUP (CYBERPUNK READY CHECK) -->
+    <!-- MATCH FOUND MODAL POPUP (FACEIT-STYLE READY CHECK) -->
     @if($matchFound)
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-fadeIn">
-        <div class="bg-[#120817] border-2 border-[#FF0055] rounded-3xl max-w-lg w-full p-8 text-center shadow-[0_0_60px_rgba(255,0,85,0.7)] relative overflow-hidden">
-            <!-- Pulsing neon header bar -->
-            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#FF0055] via-white to-[#FF0055] shadow-[0_0_20px_#FF0055] animate-pulse"></div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 animate-fadeIn">
+        <div class="bg-[#120817] border-2 {{ $accepted ? 'border-emerald-500 shadow-[0_0_60px_rgba(16,185,129,0.6)]' : 'border-[#FF0055] shadow-[0_0_60px_rgba(255,0,85,0.7)]' }} rounded-3xl max-w-lg w-full p-8 text-center relative overflow-hidden transition-all duration-300">
+            <!-- Pulsing neon header bar / timer bar -->
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r {{ $accepted ? 'from-emerald-400 via-white to-emerald-400 shadow-[0_0_20px_#10B981]' : 'from-[#FF0055] via-white to-[#FF0055] shadow-[0_0_20px_#FF0055]' }}"></div>
 
-            <div class="w-20 h-20 bg-[#FF0055]/20 text-[#FF0055] rounded-2xl border border-[#FF0055] flex items-center justify-center mx-auto mb-5 shadow-[0_0_25px_rgba(255,0,85,0.6)]">
-                <svg class="w-10 h-10 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                </svg>
+            <!-- Icon -->
+            <div class="w-20 h-20 {{ $accepted ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.5)]' : 'bg-[#FF0055]/20 text-[#FF0055] border-[#FF0055] shadow-[0_0_25px_rgba(255,0,85,0.6)]' }} rounded-2xl border flex items-center justify-center mx-auto mb-4 transition">
+                @if($accepted)
+                    <svg class="w-10 h-10 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                @else
+                    <svg class="w-10 h-10 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                @endif
             </div>
 
+            <!-- Title -->
             <h2 class="text-3xl sm:text-4xl font-cyber font-black text-white uppercase tracking-wider">
-                МАТЧ НАЙДЕН!
+                {{ $accepted ? 'ВЫ ГОТОВЫ!' : 'МАТЧ НАЙДЕН!' }}
             </h2>
-            <p class="text-neutral-300 text-sm mt-2 mb-6">
-                Соперник обнаружен в сети. Подтвердите готовность для перехода в комнату Map Veto!
+
+            <!-- FACEIT Ready counter: 1/2 or 2/2 -->
+            <div class="my-3 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#08040A] border border-white/10">
+                <span class="w-2.5 h-2.5 rounded-full {{ $acceptedCount >= 2 ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-[#FF0055] animate-ping' }}"></span>
+                <span class="font-cyber font-bold text-sm tracking-widest text-neutral-200">
+                    ГОТОВНОСТЬ: <span class="{{ $acceptedCount >= 2 ? 'text-emerald-400' : 'text-[#FF0055]' }}">{{ $acceptedCount }} / 2</span>
+                </span>
+            </div>
+
+            <p class="text-neutral-300 text-xs sm:text-sm max-w-sm mx-auto mb-5 leading-relaxed">
+                @if($accepted)
+                    Ожидаем подтверждения от соперника. Если он не подтвердит за отведенное время, поиск возобновится, а нарушитель получит бан.
+                @else
+                    Подтвердите участие в дуэли 1v1 до истечения таймера. Непринятие матча карается автоматическим баном!
+                @endif
             </p>
 
-            <div class="flex items-center justify-center space-x-4">
-                <button 
-                    wire:click="acceptMatch" 
-                    class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:brightness-110 text-white font-cyber font-extrabold text-2xl uppercase tracking-wider rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition transform active:scale-95 cursor-pointer border border-emerald-300/30">
-                    ПРИНЯТЬ МАТЧ
-                </button>
+            <!-- Digital Countdown Bar -->
+            <div class="mb-6 bg-[#08040A] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                <span class="text-xs uppercase font-mono text-neutral-400">ВРЕМЯ НА ПРИНЯТИЕ:</span>
+                <span class="font-cyber font-black text-2xl {{ $acceptRemainingSeconds <= 5 ? 'text-red-500 animate-pulse' : 'text-emerald-400' }}">
+                    {{ sprintf('%02d', max(0, $acceptRemainingSeconds)) }} сек
+                </span>
+            </div>
+
+            <!-- Action Button -->
+            <div class="flex items-center justify-center">
+                @if(! $accepted)
+                    <button 
+                        wire:click="acceptMatch" 
+                        class="w-full py-5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 hover:brightness-110 text-white font-cyber font-black text-2xl uppercase tracking-widest rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.7)] transition transform active:scale-95 cursor-pointer border border-emerald-300/40 flex items-center justify-center space-x-3">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>ПРИНЯТЬ МАТЧ</span>
+                    </button>
+                @else
+                    <div class="w-full py-4 bg-emerald-950/70 border border-emerald-500/50 rounded-2xl flex items-center justify-center space-x-3 text-emerald-300 font-cyber font-bold tracking-wider text-base">
+                        <svg class="w-5 h-5 animate-spin text-emerald-400" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                        </svg>
+                        <span>ОЖИДАНИЕ СОПЕРНИКА ({{ $acceptedCount }}/2)...</span>
+                    </div>
+                @endif
+            </div>
+
+            <div class="mt-4 text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+                FACEIT READY CHECK SYSTEM // 20 SEC TIMEOUT
             </div>
         </div>
     </div>
