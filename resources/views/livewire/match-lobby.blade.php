@@ -325,6 +325,17 @@
                         </button>
                     </div>
 
+                    @if(($match->player2 && $match->player2->is_bot) || (auth()->check() && auth()->user()->isAdmin()))
+                        <div class="mt-3">
+                            <button 
+                                type="button" 
+                                wire:click="startBotDuelInGame"
+                                class="w-full py-3.5 bg-[#120817] hover:bg-[#1A0D22] text-amber-300 hover:text-white font-cyber font-bold text-sm uppercase tracking-wider rounded-2xl border border-amber-500/40 hover:border-amber-400 transition cursor-pointer flex items-center justify-center space-x-2 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                                <span>🤖 ЗАСПАВНИТЬ БОТА В CS2 ДЛЯ 1v1 ТЕСТА (RCON)</span>
+                            </button>
+                        </div>
+                    @endif
+
                     <!-- Step-by-step connection guide -->
                     <div class="mt-4 bg-[#120817]/70 rounded-xl p-3.5 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-around gap-2 border border-[#FF0055]/20 font-mono">
                         <div class="flex items-center space-x-2">

@@ -225,6 +225,29 @@ class MatchLobby extends Component
         }
     }
 
+    public function startBotDuelInGame(): void
+    {
+        $this->loadMatch();
+        $rcon = new RconService();
+        if ($rcon->connect()) {
+            $rcon->execute("matchzy_remote_log_url \"http://45.140.19.240/api/matchzy/events\"");
+            $rcon->execute("bot_quota 2");
+            $rcon->execute("bot_quota_mode fill");
+            $rcon->execute("bot_join_after_player 1");
+            $rcon->execute("bot_add");
+            $rcon->execute("mp_warmup_end 1");
+            $rcon->execute("mp_restartgame 1");
+            $rcon->execute("matchzy_forceready");
+            $rcon->disconnect();
+
+            $this->rconSuccess = true;
+            $this->rconStatusMessage = "Бот заспавнен в игре! Разминка завершена, раунд стартовал. Заходите на сервер!";
+        } else {
+            $this->rconSuccess = false;
+            $this->rconStatusMessage = "Сервер CS2 недоступен. Проверьте, включен ли сервер в панели Incloudgame.";
+        }
+    }
+
     public function render()
     {
         $this->loadMatch();
