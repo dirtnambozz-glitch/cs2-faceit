@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+    <defs>
+        <!-- Background Gradient -->
+        <radialGradient id="bgGrad" cx="50%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#1A2234"/>
+            <stop offset="60%" stop-color="#0E121B"/>
+            <stop offset="100%" stop-color="#080A0F"/>
+        </radialGradient>
+        
+        <!-- Visor Radiant Glow (FACEIT Orange) -->
+        <linearGradient id="visorPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C084FC"/>
+            <stop offset="45%" stop-color="#9333EA"/>
+            <stop offset="100%" stop-color="#6B21A8"/>
+        </linearGradient>
+
+        <linearGradient id="visorGleam" x1="0%" y1="0%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+            <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Helmet & Armor Materials -->
+        <linearGradient id="helmetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2D3748"/>
+            <stop offset="40%" stop-color="#1A202C"/>
+            <stop offset="100%" stop-color="#0F141D"/>
+        </linearGradient>
+
+        <linearGradient id="armorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#222C3E"/>
+            <stop offset="100%" stop-color="#111622"/>
+        </linearGradient>
+
+        <linearGradient id="balaclavaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1E2533"/>
+            <stop offset="100%" stop-color="#10141D"/>
+        </linearGradient>
+
+        <filter id="visorGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#9333EA" flood-opacity="0.6"/>
+        </filter>
+        <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.7"/>
+        </filter>
+    </defs>
+
+    <!-- Canvas / Backdrop Circle -->
+    <rect width="240" height="240" rx="36" fill="url(#bgGrad)"/>
+    
+    <!-- Outer Tactical Border Ring -->
+    <rect x="2" y="2" width="236" height="236" rx="34" fill="none" stroke="#222C3E" stroke-width="2.5"/>
+    <rect x="8" y="8" width="224" height="224" rx="28" fill="none" stroke="#9333EA" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="8 6"/>
+
+    <!-- Subtle Crosshair Grid in Background -->
+    <path d="M120 16 L120 40 M120 200 L120 224 M16 120 L40 120 M200 120 L224 120" stroke="#9333EA" stroke-width="1.5" stroke-opacity="0.3"/>
+    <circle cx="120" cy="120" r="92" fill="none" stroke="#253046" stroke-width="1" stroke-opacity="0.4"/>
+
+    <!-- ================= OPERATIVE CHARACTER ================= -->
+    <g filter="url(#subtleShadow)">
+        <!-- Shoulders / Tactical Combat Vest -->
+        <path d="M36 240 L44 195 L68 175 L92 185 L120 188 L148 185 L172 175 L196 195 L204 240 Z" fill="url(#armorGrad)"/>
+        <!-- Vest Collar & Shoulder Straps -->
+        <path d="M78 178 L96 150 L144 150 L162 178 L148 188 L120 190 L92 188 Z" fill="#151C28" stroke="#26334A" stroke-width="2"/>
+        <path d="M68 175 L92 185 L84 240 L50 240 Z" fill="#18202D" stroke="#222C3E" stroke-width="1"/>
+        <path d="M172 175 L148 185 L156 240 L190 240 Z" fill="#18202D" stroke="#222C3E" stroke-width="1"/>
+
+        <!-- Vest Chest Rig Center Zipper / Molle -->
+        <line x1="120" y1="190" x2="120" y2="240" stroke="#9333EA" stroke-width="2" stroke-opacity="0.8"/>
+        <line x1="102" y1="210" x2="138" y2="210" stroke="#2A374E" stroke-width="2.5"/>
+        <line x1="102" y1="225" x2="138" y2="225" stroke="#2A374E" stroke-width="2.5"/>
+
+        <!-- Neck / High-Neck Balaclava Collar -->
+        <path d="M96 154 L92 128 L148 128 L144 154 Z" fill="url(#balaclavaGrad)"/>
+
+        <!-- Head / Balaclava Lower Half (Cheeks & Jaw) -->
+        <path d="M78 102 L84 148 L120 166 L156 148 L162 102 Z" fill="url(#balaclavaGrad)"/>
+        <!-- Chin seam / filter mask mesh -->
+        <path d="M104 136 L120 148 L136 136 L130 156 L120 162 L110 156 Z" fill="#0C1017" stroke="#222C3E" stroke-width="1.5"/>
+        <circle cx="120" cy="148" r="4" fill="#9333EA" fill-opacity="0.8"/>
+
+        <!-- Tactical Comms Headset (Earcup Left & Right) -->
+        <rect x="62" y="80" width="16" height="38" rx="8" fill="#1A202C" stroke="#374151" stroke-width="1.5"/>
+        <rect x="162" y="80" width="16" height="38" rx="8" fill="#1A202C" stroke="#374151" stroke-width="1.5"/>
+        <!-- Boom Microphone -->
+        <path d="M74 105 L84 130 L102 136" fill="none" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="104" cy="136" r="4.5" fill="#111827" stroke="#9333EA" stroke-width="1"/>
+
+        <!-- Ballistic FAST / MICH Helmet (Top & Brow) -->
+        <path d="M68 84 C68 40 92 28 120 28 C148 28 172 40 172 84 L174 94 C174 96 168 98 160 98 L148 94 L120 96 L92 94 L80 98 C72 98 66 96 66 94 Z" fill="url(#helmetGrad)" stroke="#374151" stroke-width="2"/>
+        
+        <!-- Helmet NVG Shroud Mount (Center Brow) -->
+        <polygon points="112,38 128,38 125,56 115,56" fill="#1F2937" stroke="#4B5563" stroke-width="1"/>
+        <rect x="117" y="44" width="6" height="6" rx="1" fill="#9333EA"/>
+        
+        <!-- Helmet Side Rails (Left & Right) -->
+        <path d="M68 64 L74 62 L78 88 L72 90 Z" fill="#1F2937" stroke="#4B5563" stroke-width="1"/>
+        <path d="M172 64 L166 62 L162 88 L168 90 Z" fill="#1F2937" stroke="#4B5563" stroke-width="1"/>
+
+        <!-- Goggles Strap (Running along helmet sides) -->
+        <path d="M68 86 L80 90 M172 86 L160 90" stroke="#111827" stroke-width="7" stroke-linecap="round"/>
+        <path d="M68 86 L80 90 M172 86 L160 90" stroke="#9333EA" stroke-width="1.5"/>
+
+        <!-- Tactical Ballistic Goggles (The Radiant Orange Visor) -->
+        <g filter="url(#visorGlow)">
+            <!-- Outer Rubber Goggle Frame -->
+            <path d="M80 88 C80 88 100 86 120 88 C140 86 160 88 160 88 L158 116 C158 116 142 122 120 120 C98 122 82 116 82 116 Z" fill="#0C1017" stroke="#253046" stroke-width="3"/>
+            <!-- Dual Goggle Lenses / Single Panoramic Shield -->
+            <path d="M84 92 C96 90 108 90 118 92 L117 114 C107 115 97 114 86 111 Z" fill="url(#visorPurple)"/>
+            <path d="M156 92 C144 90 132 90 122 92 L123 114 C133 115 143 114 154 111 Z" fill="url(#visorPurple)"/>
+
+            <!-- Glass Reflection Gleam Cuts -->
+            <polygon points="88,93 108,93 96,112 86,112" fill="url(#visorGleam)"/>
+            <polygon points="126,93 146,93 134,112 124,112" fill="url(#visorGleam)"/>
+        </g>
+
+        <!-- Nose Guard Bridge -->
+        <polygon points="117,91 123,91 122,106 118,106" fill="#111827"/>
+    </g>
+
+    <!-- Bottom Emblem Tag: RIVALIS BLADE -->
+    <g transform="translate(100, 202)">
+        <polygon points="20,0 35,8 35,24 20,32 5,24 5,8" fill="#121622" stroke="#9333EA" stroke-width="1.5"/>
+        <path d="M14 10 L26 22 M26 10 L14 22" stroke="#9333EA" stroke-width="2" stroke-linecap="round"/>
+    </g>
+</svg>

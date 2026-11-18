@@ -7,7 +7,7 @@
         <div class="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <!-- Avatar with Large Level Badge -->
             <div class="relative shrink-0">
-                <img src="{{ $user->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $user->name }}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-white/10 bg-[#0A0D14] object-cover shadow-lg" alt="Avatar">
+                <img src="{{ $user->avatar_url }}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-white/10 bg-[#0A0D14] object-cover shadow-lg" alt="{{ $user->name }}">
                 <div class="absolute -bottom-2 -right-2">
                     <x-faceit-level :level="$user->level" size="lg" />
                 </div>

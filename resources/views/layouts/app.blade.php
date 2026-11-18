@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'RIVALIS — Киберспортивная CS2 1v1 Платформа' }}</title>
     <link rel="icon" type="image/svg+xml" href="/images/rivalis-logo.svg">
-    <link rel="alternate icon" type="image/jpeg" href="/images/rivalis-logo.jpg">
+    <link rel="apple-touch-icon" href="/images/rivalis-brand-avatar.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -141,7 +141,7 @@
 
                 <!-- User Passport Capsule -->
                 <a href="{{ route('profile') }}" class="flex items-center space-x-3 bg-[#121622] border border-[#1F273B] rounded-xl px-3 py-1.5 hover:border-[#FF5500]/60 transition group shadow-sm">
-                    <img src="{{ auth()->user()->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed='.auth()->user()->name }}" class="w-8 h-8 rounded-lg bg-neutral-900 border border-white/10 object-cover" alt="">
+                    <img src="{{ auth()->user()->avatar_url }}" class="w-8 h-8 rounded-lg bg-[#0A0D14] border border-[#1F273B] object-cover" alt="{{ auth()->user()->name }}">
                     <div class="hidden sm:block text-right">
                         <div class="text-xs font-semibold text-white leading-tight group-hover:text-[#FF5500] transition-colors flex items-center justify-end space-x-1.5">
                             <span>{{ auth()->user()->name }}</span>

@@ -8,7 +8,7 @@
             <!-- Player 1 (Left) -->
             <div class="flex items-center space-x-4 flex-1 w-full md:w-auto">
                 <div class="relative shrink-0">
-                    <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-[#1F273B] bg-[#0A0D14] object-cover" alt="P1">
+                    <img src="{{ $match->player1->avatar_url }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-[#1F273B] bg-[#0A0D14] object-cover" alt="P1">
                     <div class="absolute -bottom-1.5 -right-1.5">
                         <x-faceit-level :level="$match->player1->level" size="sm" />
                     </div>
@@ -90,7 +90,7 @@
                     @endif
                 </div>
                 <div class="relative shrink-0">
-                    <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'opponent') }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-[#1F273B] bg-[#0A0D14] object-cover" alt="P2">
+                    <img src="{{ $match->player2 ? $match->player2->avatar_url : 'https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg' }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-[#1F273B] bg-[#0A0D14] object-cover" alt="P2">
                     @if($match->player2)
                     <div class="absolute -bottom-1.5 -right-1.5">
                         <x-faceit-level :level="$match->player2->level" size="sm" />
@@ -213,7 +213,7 @@
                         <!-- Player 1 Status -->
                         <div class="bg-[#121622] border border-[#1F273B] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-9 h-9 rounded-lg border border-white/10 object-cover" alt="P1">
+                                <img src="{{ $match->player1->avatar_url }}" class="w-9 h-9 rounded-lg border border-white/10 object-cover" alt="P1">
                                 <div>
                                     <p class="font-faceit font-bold text-sm text-white">{{ $match->player1->name }}</p>
                                     <p class="text-[10px] font-mono text-neutral-400">Слот 1</p>
@@ -239,7 +239,7 @@
                         @endphp
                         <div class="bg-[#121622] border border-[#1F273B] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'bot') }}" class="w-9 h-9 rounded-lg border border-white/10 object-cover" alt="P2">
+                                <img src="{{ $match->player2 ? $match->player2->avatar_url : 'https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg' }}" class="w-9 h-9 rounded-lg border border-white/10 object-cover" alt="P2">
                                 <div>
                                     <p class="font-faceit font-bold text-sm text-white">{{ $match->player2->name ?? 'Оппонент' }}</p>
                                     <p class="text-[10px] font-mono text-neutral-400">Слот 2</p>

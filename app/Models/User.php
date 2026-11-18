@@ -86,6 +86,26 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function getAvatarAttribute(?string $value): string
+    {
+        if ($value && ! str_contains($value, 'dicebear')) {
+            return $value;
+        }
+
+        return $this->avatar_url;
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        $raw = $this->attributes['avatar'] ?? null;
+        if ($raw && ! str_contains($raw, 'dicebear')) {
+            return $raw;
+        }
+
+        // Default official Steam avatar
+        return 'https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg';
+    }
+
     public function getWinrateAttribute(): float
     {
         if ($this->matches_count === 0) {

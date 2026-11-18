@@ -1,48 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
     <defs>
-        <linearGradient id="bladeOrange" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FF6B00"/>
-            <stop offset="50%" stop-color="#FF5500"/>
-            <stop offset="100%" stop-color="#D94000"/>
+        <!-- Radiant FACEIT Competition Orange -->
+        <linearGradient id="rivOrg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFA028"/>
+            <stop offset="45%" stop-color="#FF5500"/>
+            <stop offset="100%" stop-color="#C93400"/>
         </linearGradient>
-        <linearGradient id="bladeAmber" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#FF8A00"/>
-            <stop offset="100%" stop-color="#FFA826"/>
+
+        <!-- Molten Core Flare -->
+        <linearGradient id="rivFlare" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF7700"/>
+            <stop offset="100%" stop-color="#FFC043"/>
         </linearGradient>
-        <linearGradient id="bladeDark" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1E2638"/>
-            <stop offset="100%" stop-color="#0E121B"/>
-        </linearGradient>
-        <linearGradient id="metalSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+
+        <!-- Titanium Tactical Steel -->
+        <linearGradient id="rivSteel" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="60%" stop-color="#CBD5E1"/>
-            <stop offset="100%" stop-color="#64748B"/>
+            <stop offset="35%" stop-color="#CBD5E1"/>
+            <stop offset="75%" stop-color="#64748B"/>
+            <stop offset="100%" stop-color="#334155"/>
         </linearGradient>
-        <filter id="glowOrange" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF5500" flood-opacity="0.5"/>
+
+        <!-- Deep Carbon Dark Alloy -->
+        <linearGradient id="rivCarbon" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2D3748"/>
+            <stop offset="60%" stop-color="#1A202C"/>
+            <stop offset="100%" stop-color="#0B0F17"/>
+        </linearGradient>
+
+        <!-- Glowing Drop Shadow Filter -->
+        <filter id="rivGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#FF5500" flood-opacity="0.55"/>
         </filter>
-        <filter id="glowSubtle" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+        <filter id="rivShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.7"/>
         </filter>
     </defs>
 
-    <!-- Outer Tactical Hexagon Frame -->
-    <polygon points="100,12 176,56 176,144 100,188 24,144 24,56" fill="url(#bladeDark)" stroke="#222C3E" stroke-width="3" filter="url(#glowSubtle)"/>
-    
-    <!-- Inner Accent Micro-lines -->
-    <polygon points="100,24 164,62 164,138 100,176 36,138 36,62" fill="none" stroke="#2D3A52" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <g filter="url(#rivShadow)">
+        <!-- 1. LEFT PILLAR / STEM OF "R" (Titanium Combat Knife Spine) -->
+        <!-- Front Facet -->
+        <path d="M42 32 L78 32 L60 172 L24 172 Z" fill="url(#rivSteel)"/>
+        <!-- Top Bevel Gleam -->
+        <path d="M42 32 L78 32 L72 68 L36 68 Z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <!-- Stencil Tactical Gap -->
+        <polygon points="46,88 64,88 61,114 43,114" fill="#0B0E14"/>
 
-    <!-- Left Geometric Blade (Metallic Silver / Titanium) -->
-    <path d="M54 70 L96 34 L96 118 L64 146 L54 136 Z" fill="url(#metalSilver)"/>
-    <path d="M64 146 L96 118 L96 156 L76 166 Z" fill="#475569"/>
+        <!-- 2. UPPER COMBAT BLADE LOOP (Curved Talon / Karambit Arc of "R") -->
+        <!-- Outer Molten Blade Curve -->
+        <path d="M78 32 L144 32 C172 32 188 48 184 76 C180 102 160 114 132 116 L124 116 L130 96 C148 95 160 88 162 76 C164 62 152 52 136 52 L75 52 Z" fill="url(#rivOrg)" filter="url(#rivGlow)"/>
+        <!-- Top Blade Highlight Edge -->
+        <path d="M78 32 L144 32 C160 32 174 40 178 54 L136 52 L75 52 Z" fill="url(#rivFlare)"/>
 
-    <!-- Right Intersecting Cyber Blade (FACEIT Radiant Orange) -->
-    <path d="M146 70 L104 34 L104 126 L136 154 L146 144 Z" fill="url(#bladeOrange)" filter="url(#glowOrange)"/>
-    <path d="M104 74 L146 70 L126 128 L104 104 Z" fill="url(#bladeAmber)"/>
-    <path d="M136 154 L104 126 L104 164 L124 174 Z" fill="#B33600"/>
+        <!-- 3. LOWER SLASHING COMBAT BLADE (Diagonal Blade of "R" & 1v1 Duel Strike) -->
+        <!-- Primary Hyper-Blade cutting down-right -->
+        <path d="M102 104 L140 104 L188 172 L150 172 L118 126 L98 126 Z" fill="url(#rivOrg)" filter="url(#rivGlow)"/>
+        <!-- Cutting Edge Gleam (Top Facet) -->
+        <path d="M140 104 L188 172 L172 172 L130 114 Z" fill="url(#rivFlare)"/>
+        <!-- Dark Under-Bevel -->
+        <polygon points="102,104 118,126 98,126" fill="#A52A00"/>
 
-    <!-- Center Precision Slit / Core Gem -->
-    <polygon points="100,44 108,100 100,148 92,100" fill="#0C0E14"/>
-    <polygon points="100,72 105,98 100,120 95,98" fill="#FF5500"/>
-    <circle cx="100" cy="98" r="3" fill="#FFFFFF"/>
+        <!-- 4. COUNTER-TERRORIST OPPOSING DAGGER (The Crossing Duel Accent) -->
+        <!-- Sharp Counter-Blade crossing in from top right -->
+        <polygon points="156,22 182,22 158,58 132,58" fill="url(#rivSteel)"/>
+        <polygon points="146,40 172,40 166,50 140,50" fill="#38BDF8" fill-opacity="0.9"/>
+
+        <!-- 5. 1V1 CLASH RETICLE CORE (Center Impact Point) -->
+        <circle cx="102" cy="104" r="5" fill="#FFFFFF" filter="url(#rivGlow)"/>
+        <circle cx="102" cy="104" r="2.2" fill="#FF5500"/>
+    </g>
 </svg>

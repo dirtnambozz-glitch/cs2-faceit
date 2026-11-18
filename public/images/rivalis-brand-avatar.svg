@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+    <defs>
+        <!-- Background Radial Carbon Dark -->
+        <radialGradient id="avBg" cx="50%" cy="35%" r="70%">
+            <stop offset="0%" stop-color="#182030"/>
+            <stop offset="50%" stop-color="#0E121B"/>
+            <stop offset="100%" stop-color="#06080C"/>
+        </radialGradient>
+
+        <!-- Radiant FACEIT Competition Orange -->
+        <linearGradient id="avOrg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFA028"/>
+            <stop offset="45%" stop-color="#FF5500"/>
+            <stop offset="100%" stop-color="#C93400"/>
+        </linearGradient>
+
+        <linearGradient id="avFlare" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF7700"/>
+            <stop offset="100%" stop-color="#FFC043"/>
+        </linearGradient>
+
+        <linearGradient id="avSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="35%" stop-color="#CBD5E1"/>
+            <stop offset="75%" stop-color="#64748B"/>
+            <stop offset="100%" stop-color="#334155"/>
+        </linearGradient>
+
+        <linearGradient id="avBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF5500" stop-opacity="0.8"/>
+            <stop offset="50%" stop-color="#1F293D"/>
+            <stop offset="100%" stop-color="#FF5500" stop-opacity="0.4"/>
+        </linearGradient>
+
+        <filter id="avGlow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2" stdDeviation="8" flood-color="#FF5500" flood-opacity="0.6"/>
+        </filter>
+        <filter id="avInnerGlow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#FF5500" flood-opacity="0.25"/>
+        </filter>
+    </defs>
+
+    <!-- Outer Armor Chassis -->
+    <rect width="256" height="256" rx="44" fill="url(#avBg)"/>
+    <rect x="2" y="2" width="252" height="252" rx="42" fill="none" stroke="url(#avBorder)" stroke-width="2.5"/>
+
+    <!-- Tactical Grid & Hex Matrix -->
+    <g opacity="0.08" stroke="#FFFFFF" stroke-width="1">
+        <line x1="0" y1="64" x2="256" y2="64"/>
+        <line x1="0" y1="128" x2="256" y2="128"/>
+        <line x1="0" y1="192" x2="256" y2="192"/>
+        <line x1="64" y1="0" x2="64" y2="256"/>
+        <line x1="128" y1="0" x2="128" y2="256"/>
+        <line x1="192" y1="0" x2="192" y2="256"/>
+    </g>
+
+    <!-- Tactical HUD Corner Brackets -->
+    <path d="M24 44 L24 24 L44 24" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M232 44 L232 24 L212 24" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M24 212 L24 232 L44 232" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M232 212 L232 232 L212 232" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Top Telemetry Tag -->
+    <text x="128" y="32" text-anchor="middle" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="8.5" font-weight="800" fill="#64748B" letter-spacing="3.5">
+        CS2 // 1V1 COMPETITIVE
+    </text>
+
+    <!-- Central Glowing Core Backlight -->
+    <circle cx="128" cy="120" r="50" fill="#FF5500" opacity="0.12" filter="url(#avInnerGlow)"/>
+
+    <!-- Central Emblem: Scaled & Positioned -->
+    <g transform="translate(36, 28) scale(0.92)">
+        <!-- 1. LEFT PILLAR / STEM OF "R" -->
+        <path d="M42 32 L78 32 L60 172 L24 172 Z" fill="url(#avSteel)"/>
+        <path d="M42 32 L78 32 L72 68 L36 68 Z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <polygon points="46,88 64,88 61,114 43,114" fill="#0B0E14"/>
+
+        <!-- 2. UPPER COMBAT BLADE LOOP -->
+        <path d="M78 32 L144 32 C172 32 188 48 184 76 C180 102 160 114 132 116 L124 116 L130 96 C148 95 160 88 162 76 C164 62 152 52 136 52 L75 52 Z" fill="url(#avOrg)" filter="url(#avGlow)"/>
+        <path d="M78 32 L144 32 C160 32 174 40 178 54 L136 52 L75 52 Z" fill="url(#avFlare)"/>
+
+        <!-- 3. LOWER SLASHING COMBAT BLADE -->
+        <path d="M102 104 L140 104 L188 172 L150 172 L118 126 L98 126 Z" fill="url(#avOrg)" filter="url(#avGlow)"/>
+        <path d="M140 104 L188 172 L172 172 L130 114 Z" fill="url(#avFlare)"/>
+        <polygon points="102,104 118,126 98,126" fill="#A52A00"/>
+
+        <!-- 4. COUNTER-TERRORIST OPPOSING DAGGER -->
+        <polygon points="156,22 182,22 158,58 132,58" fill="url(#avSteel)"/>
+        <polygon points="146,40 172,40 166,50 140,50" fill="#38BDF8" fill-opacity="0.9"/>
+
+        <!-- 5. 1V1 CLASH RETICLE CORE -->
+        <circle cx="102" cy="104" r="5" fill="#FFFFFF" filter="url(#avGlow)"/>
+        <circle cx="102" cy="104" r="2.2" fill="#FF5500"/>
+    </g>
+
+    <!-- Bottom Stencil Wordmark -->
+    <text x="128" y="222" text-anchor="middle" font-family="'Inter', -apple-system, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" letter-spacing="5">
+        RIVALIS<tspan fill="#FF5500">.</tspan>
+    </text>
+</svg>

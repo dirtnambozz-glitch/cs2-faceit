@@ -54,7 +54,7 @@
                     <span>2ND PLACE</span>
                 </div>
                 <div class="relative w-20 h-20 mx-auto mb-3">
-                    <img src="{{ $top2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $top2->name }}" class="w-full h-full rounded-2xl border-2 border-slate-300/60 object-cover bg-[#0A0D14]" alt="">
+                    <img src="{{ $top2->avatar_url }}" class="w-full h-full rounded-2xl border-2 border-slate-300/60 object-cover bg-[#0A0D14]" alt="{{ $top2->name }}">
                     <div class="absolute -bottom-2 -right-2">
                         <x-faceit-level :level="$top2->level" size="sm" />
                     </div>
@@ -80,7 +80,7 @@
                     <span>1ST PLACE • LEADER</span>
                 </div>
                 <div class="relative w-24 h-24 mx-auto mb-3">
-                    <img src="{{ $top1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $top1->name }}" class="w-full h-full rounded-2xl border-2 border-amber-400 object-cover bg-[#0A0D14] shadow-[0_0_20px_rgba(251,191,36,0.3)]" alt="">
+                    <img src="{{ $top1->avatar_url }}" class="w-full h-full rounded-2xl border-2 border-amber-400 object-cover bg-[#0A0D14] shadow-[0_0_20px_rgba(251,191,36,0.3)]" alt="{{ $top1->name }}">
                     <div class="absolute -bottom-2 -right-2">
                         <x-faceit-level :level="$top1->level" size="md" />
                     </div>
@@ -106,7 +106,7 @@
                     <span>3RD PLACE</span>
                 </div>
                 <div class="relative w-20 h-20 mx-auto mb-3">
-                    <img src="{{ $top3->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $top3->name }}" class="w-full h-full rounded-2xl border-2 border-amber-600/60 object-cover bg-[#0A0D14]" alt="">
+                    <img src="{{ $top3->avatar_url }}" class="w-full h-full rounded-2xl border-2 border-amber-600/60 object-cover bg-[#0A0D14]" alt="{{ $top3->name }}">
                     <div class="absolute -bottom-2 -right-2">
                         <x-faceit-level :level="$top3->level" size="sm" />
                     </div>
@@ -169,7 +169,7 @@
                             <td class="py-3.5 px-6">
                                 <div class="flex items-center space-x-3">
                                     <a href="{{ route('profile', ['id' => $u->id]) }}" class="shrink-0 group">
-                                        <img src="{{ $u->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $u->name }}" class="w-9 h-9 rounded-lg bg-neutral-900 border border-white/10 group-hover:border-[#FF5500]/60 transition object-cover" alt="Avatar">
+                                        <img src="{{ $u->avatar_url }}" class="w-9 h-9 rounded-lg bg-[#0A0D14] border border-[#1F273B] group-hover:border-[#FF5500]/60 transition object-cover" alt="{{ $u->name }}">
                                     </a>
                                     <div>
                                         <div class="flex items-center space-x-2">

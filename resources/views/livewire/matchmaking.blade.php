@@ -203,7 +203,7 @@
                 <!-- Header Dossier -->
                 <div class="flex items-center space-x-4 pb-5 border-b border-[#1F273B]">
                     <div class="relative shrink-0">
-                        <img src="{{ $user->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $user->name }}" class="w-16 h-16 rounded-xl border border-white/10 bg-[#0A0D14] object-cover" alt="Avatar">
+                        <img src="{{ $user->avatar_url }}" class="w-16 h-16 rounded-xl border border-white/10 bg-[#0A0D14] object-cover" alt="{{ $user->name }}">
                         <div class="absolute -bottom-2 -right-2">
                             <x-faceit-level :level="$user->level" size="md" />
                         </div>

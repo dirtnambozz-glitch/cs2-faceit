@@ -25,46 +25,48 @@ $titleSize = match($size) {
 @endphp
 
 <div {{ $attributes->merge(['class' => 'flex items-center space-x-3 select-none group']) }}>
-    <!-- Vector Blade Emblem -->
+    <!-- New Kinetic Blade R-Mark -->
     <div class="relative shrink-0 {{ $iconSize }} transition-transform duration-300 group-hover:scale-105">
-        <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_0_12px_rgba(255,85,0,0.35)]">
+        <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_0_14px_rgba(255,85,0,0.4)]">
             <defs>
-                <linearGradient id="bladeOrg_{{ $size }}" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FF6B00"/>
-                    <stop offset="60%" stop-color="#FF5500"/>
-                    <stop offset="100%" stop-color="#D94000"/>
+                <linearGradient id="rivOrg_{{ $size }}" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFA028"/>
+                    <stop offset="45%" stop-color="#FF5500"/>
+                    <stop offset="100%" stop-color="#C93400"/>
                 </linearGradient>
-                <linearGradient id="bladeAmb_{{ $size }}" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#FF8A00"/>
-                    <stop offset="100%" stop-color="#FFA826"/>
+                <linearGradient id="rivFlare_{{ $size }}" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FF7700"/>
+                    <stop offset="100%" stop-color="#FFC043"/>
                 </linearGradient>
-                <linearGradient id="bladeDk_{{ $size }}" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#1B2233"/>
-                    <stop offset="100%" stop-color="#0E121B"/>
-                </linearGradient>
-                <linearGradient id="bladeSlv_{{ $size }}" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="rivSteel_{{ $size }}" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#FFFFFF"/>
-                    <stop offset="60%" stop-color="#CBD5E1"/>
-                    <stop offset="100%" stop-color="#64748B"/>
+                    <stop offset="35%" stop-color="#CBD5E1"/>
+                    <stop offset="75%" stop-color="#64748B"/>
+                    <stop offset="100%" stop-color="#334155"/>
                 </linearGradient>
             </defs>
 
-            <!-- Outer Hexagon Frame -->
-            <polygon points="100,12 176,56 176,144 100,188 24,144 24,56" fill="url(#bladeDk_{{ $size }})" stroke="#222C3E" stroke-width="3"/>
-            
-            <!-- Left Blade (Titanium Steel) -->
-            <path d="M54 70 L96 34 L96 118 L64 146 L54 136 Z" fill="url(#bladeSlv_{{ $size }})"/>
-            <path d="M64 146 L96 118 L96 156 L76 166 Z" fill="#475569"/>
+            <!-- 1. Left Backbone Stem (Titanium Bevel) -->
+            <path d="M42 32 L78 32 L60 172 L24 172 Z" fill="url(#rivSteel_{{ $size }})"/>
+            <path d="M42 32 L78 32 L72 68 L36 68 Z" fill="#FFFFFF" fill-opacity="0.6"/>
+            <polygon points="46,88 64,88 61,114 43,114" fill="#0B0E14"/>
 
-            <!-- Right Interlocking Blade (FACEIT Radiant Orange) -->
-            <path d="M146 70 L104 34 L104 126 L136 154 L146 144 Z" fill="url(#bladeOrg_{{ $size }})"/>
-            <path d="M104 74 L146 70 L126 128 L104 104 Z" fill="url(#bladeAmb_{{ $size }})"/>
-            <path d="M136 154 L104 126 L104 164 L124 174 Z" fill="#B33600"/>
+            <!-- 2. Upper Combat Blade Loop (Talon Arc) -->
+            <path d="M78 32 L144 32 C172 32 188 48 184 76 C180 102 160 114 132 116 L124 116 L130 96 C148 95 160 88 162 76 C164 62 152 52 136 52 L75 52 Z" fill="url(#rivOrg_{{ $size }})"/>
+            <path d="M78 32 L144 32 C160 32 174 40 178 54 L136 52 L75 52 Z" fill="url(#rivFlare_{{ $size }})"/>
 
-            <!-- Center Core Slit -->
-            <polygon points="100,44 108,100 100,148 92,100" fill="#0C0E14"/>
-            <polygon points="100,72 105,98 100,120 95,98" fill="#FF5500"/>
-            <circle cx="100" cy="98" r="3.5" fill="#FFFFFF"/>
+            <!-- 3. Slashing Diagonal Combat Blade -->
+            <path d="M102 104 L140 104 L188 172 L150 172 L118 126 L98 126 Z" fill="url(#rivOrg_{{ $size }})"/>
+            <path d="M140 104 L188 172 L172 172 L130 114 Z" fill="url(#rivFlare_{{ $size }})"/>
+            <polygon points="102,104 118,126 98,126" fill="#A52A00"/>
+
+            <!-- 4. Counter-Blade Clash (Blue Steel) -->
+            <polygon points="156,22 182,22 158,58 132,58" fill="url(#rivSteel_{{ $size }})"/>
+            <polygon points="146,40 172,40 166,50 140,50" fill="#38BDF8" fill-opacity="0.9"/>
+
+            <!-- 5. 1v1 Clash Reticle Core -->
+            <circle cx="102" cy="104" r="5" fill="#FFFFFF"/>
+            <circle cx="102" cy="104" r="2.2" fill="#FF5500"/>
         </svg>
         <div class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#FF5500] rounded-full animate-pulse shadow-[0_0_8px_#FF5500]"></div>
     </div>

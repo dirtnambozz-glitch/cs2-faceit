@@ -94,11 +94,11 @@ class SteamAuthController extends Controller
                 'steam_id' => $steamId,
                 'elo' => 1000,
                 'level' => EloService::calculateLevel(1000),
-                'avatar' => $steamProfile['avatar'] ?? ('https://api.dicebear.com/7.x/bottts/svg?seed=' . $steamId),
+                'avatar' => $steamProfile['avatar'] ?? null,
             ]);
         } else {
-            // Update avatar if currently default
-            if ($steamProfile['avatar'] && str_contains($user->avatar ?? '', 'dicebear')) {
+            // Update avatar if user doesn't have custom avatar yet
+            if ($steamProfile['avatar'] && empty($user->avatar)) {
                 $user->update(['avatar' => $steamProfile['avatar']]);
             }
         }

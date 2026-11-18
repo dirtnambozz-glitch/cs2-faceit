@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+    <rect width="64" height="64" rx="14" fill="#0A0D14"/>
+    <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#FF5500" stroke-width="1.5" stroke-opacity="0.6"/>
+    <g transform="translate(6, 6) scale(0.26)">
+        <!-- 1. LEFT PILLAR / STEM OF "R" -->
+        <path d="M42 32 L78 32 L60 172 L24 172 Z" fill="#E2E8F0"/>
+        <!-- 2. UPPER COMBAT BLADE LOOP -->
+        <path d="M78 32 L144 32 C172 32 188 48 184 76 C180 102 160 114 132 116 L124 116 L130 96 C148 95 160 88 162 76 C164 62 152 52 136 52 L75 52 Z" fill="#FF5500"/>
+        <!-- 3. LOWER SLASHING COMBAT BLADE -->
+        <path d="M102 104 L140 104 L188 172 L150 172 L118 126 L98 126 Z" fill="#FF5500"/>
+        <path d="M140 104 L188 172 L172 172 L130 114 Z" fill="#FFA826"/>
+        <!-- 4. COUNTER-TERRORIST OPPOSING DAGGER -->
+        <polygon points="156,22 182,22 158,58 132,58" fill="#38BDF8"/>
+        <!-- 5. 1V1 CLASH RETICLE CORE -->
+        <circle cx="102" cy="104" r="6" fill="#FFFFFF"/>
+    </g>
+</svg>

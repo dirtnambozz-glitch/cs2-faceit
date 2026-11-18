@@ -54,7 +54,7 @@ class Register extends Component
             'password' => Hash::make($this->password),
             'elo' => 1000,
             'level' => EloService::calculateLevel(1000),
-            'avatar' => $steamProfile['avatar'] ?? ('https://api.dicebear.com/7.x/bottts/svg?seed=' . urlencode($this->name)),
+            'avatar' => $steamProfile['avatar'] ?? null,
         ]);
 
         Auth::login($user, true);

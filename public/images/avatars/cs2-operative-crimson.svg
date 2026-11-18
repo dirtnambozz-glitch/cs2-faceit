@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+    <defs>
+        <radialGradient id="bgGradCr" cx="50%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#2D1115"/>
+            <stop offset="60%" stop-color="#15080A"/>
+            <stop offset="100%" stop-color="#0A0405"/>
+        </radialGradient>
+        <linearGradient id="visorCrimson" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF334B"/>
+            <stop offset="45%" stop-color="#DC2626"/>
+            <stop offset="100%" stop-color="#881337"/>
+        </linearGradient>
+        <linearGradient id="visorGleamCr" x1="0%" y1="0%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+            <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="visorGlowCr" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#DC2626" flood-opacity="0.7"/>
+        </filter>
+    </defs>
+
+    <rect width="240" height="240" rx="36" fill="url(#bgGradCr)"/>
+    <rect x="2" y="2" width="236" height="236" rx="34" fill="none" stroke="#451820" stroke-width="2.5"/>
+    <rect x="8" y="8" width="224" height="224" rx="28" fill="none" stroke="#DC2626" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+
+    <g>
+        <path d="M36 240 L44 195 L68 175 L92 185 L120 188 L148 185 L172 175 L196 195 L204 240 Z" fill="#201014" stroke="#3D1D24" stroke-width="2"/>
+        <path d="M78 178 L96 150 L144 150 L162 178 L148 188 L120 190 L92 188 Z" fill="#170A0D" stroke="#35161C" stroke-width="2"/>
+        <line x1="120" y1="190" x2="120" y2="240" stroke="#DC2626" stroke-width="2" stroke-opacity="0.8"/>
+
+        <path d="M96 154 L92 128 L148 128 L144 154 Z" fill="#1A0D10"/>
+        <path d="M78 102 L84 148 L120 166 L156 148 L162 102 Z" fill="#221115"/>
+
+        <!-- Skull Jaw Print on Mask -->
+        <path d="M106 138 L120 152 L134 138" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+        <line x1="114" y1="146" x2="114" y2="154" stroke="#DC2626" stroke-width="1.5"/>
+        <line x1="120" y1="148" x2="120" y2="156" stroke="#DC2626" stroke-width="1.5"/>
+        <line x1="126" y1="146" x2="126" y2="154" stroke="#DC2626" stroke-width="1.5"/>
+
+        <rect x="62" y="80" width="16" height="38" rx="8" fill="#221217" stroke="#48222C" stroke-width="1.5"/>
+        <rect x="162" y="80" width="16" height="38" rx="8" fill="#221217" stroke="#48222C" stroke-width="1.5"/>
+        <path d="M74 105 L84 130 L102 136" fill="none" stroke="#48222C" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="104" cy="136" r="4.5" fill="#13080A" stroke="#DC2626" stroke-width="1"/>
+
+        <!-- Helmet -->
+        <path d="M68 84 C68 40 92 28 120 28 C148 28 172 40 172 84 L174 94 C174 96 168 98 160 98 L148 94 L120 96 L92 94 L80 98 C72 98 66 96 66 94 Z" fill="#241217" stroke="#48222C" stroke-width="2"/>
+        <polygon points="112,38 128,38 125,56 115,56" fill="#30161C" stroke="#5E2935" stroke-width="1"/>
+        <rect x="117" y="44" width="6" height="6" rx="1" fill="#DC2626"/>
+
+        <!-- Goggles -->
+        <g filter="url(#visorGlowCr)">
+            <path d="M80 88 C80 88 100 86 120 88 C140 86 160 88 160 88 L158 116 C158 116 142 122 120 120 C98 122 82 116 82 116 Z" fill="#100608" stroke="#38151D" stroke-width="3"/>
+            <path d="M84 92 C96 90 108 90 118 92 L117 114 C107 115 97 114 86 111 Z" fill="url(#visorCrimson)"/>
+            <path d="M156 92 C144 90 132 90 122 92 L123 114 C133 115 143 114 154 111 Z" fill="url(#visorCrimson)"/>
+            <polygon points="88,93 108,93 96,112 86,112" fill="url(#visorGleamCr)"/>
+            <polygon points="126,93 146,93 134,112 124,112" fill="url(#visorGleamCr)"/>
+        </g>
+    </g>
+</svg>
