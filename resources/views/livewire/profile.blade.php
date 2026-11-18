@@ -1,19 +1,19 @@
 <div class="max-w-5xl mx-auto space-y-6">
-    <!-- Profile Hero Card (FACEIT Player Banner) -->
-    <div class="bg-[#121620] border border-[#22293A] rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+    <!-- Profile Hero Card (FACEIT Player Passport) -->
+    <div class="bg-[#121622] border border-[#1F273B] rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
         <!-- Subtle Top Accent Line -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FF5500] to-transparent"></div>
 
         <div class="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6">
-            <!-- Avatar with FACEIT Level Badge -->
+            <!-- Avatar with Large Level Badge -->
             <div class="relative shrink-0">
-                <img src="{{ $user->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $user->name }}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-[#22293A] bg-[#0C0E14] object-cover" alt="Avatar">
+                <img src="{{ $user->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $user->name }}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-white/10 bg-[#0A0D14] object-cover shadow-lg" alt="Avatar">
                 <div class="absolute -bottom-2 -right-2">
                     <x-faceit-level :level="$user->level" size="lg" />
                 </div>
             </div>
 
-            <!-- Profile Info -->
+            <!-- Profile Info & Tags -->
             <div class="flex-1 text-center sm:text-left space-y-3">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                     <h1 class="text-2xl sm:text-3xl font-faceit font-extrabold text-white tracking-wide">
@@ -27,15 +27,16 @@
                     @endif
                 </div>
 
-                <!-- Steam ID Status -->
+                <!-- Steam ID Status Capsule -->
                 <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                     @if($user->steam_id)
-                        <span class="inline-flex items-center space-x-2 bg-[#0C0E14] border border-[#22293A] px-3 py-1 rounded-lg text-xs font-mono text-emerald-400">
+                        <span class="inline-flex items-center space-x-2 bg-[#0E121B] border border-[#1F273B] px-3 py-1 rounded-lg text-xs font-mono text-emerald-400">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>SteamID64: {{ $user->steam_id }}</span>
                         </span>
-                        <a href="https://steamcommunity.com/profiles/{{ $user->steam_id }}" target="_blank" class="text-xs text-neutral-400 hover:text-white hover:underline font-mono">
-                            Профиль Steam ↗
+                        <a href="https://steamcommunity.com/profiles/{{ $user->steam_id }}" target="_blank" class="text-xs text-neutral-400 hover:text-white hover:underline font-mono flex items-center space-x-1">
+                            <span>Профиль Steam</span>
+                            <span class="text-xs">↗</span>
                         </a>
                     @else
                         <span class="inline-flex items-center space-x-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-lg text-xs text-amber-400 font-mono">
@@ -49,29 +50,29 @@
                     @endif
                 </div>
 
-                <!-- Stats summary HUD -->
-                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-6 pt-4 text-sm border-t border-[#22293A]">
+                <!-- Stats Summary Matrix -->
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-6 pt-4 text-sm border-t border-[#1F273B]">
                     <div>
                         <span class="text-neutral-400 text-xs font-mono uppercase tracking-wider block">Рейтинг ELO</span>
                         <span class="font-faceit font-bold text-2xl text-white">{{ $user->elo }} <span class="text-[#FF5500] text-xs font-mono">ELO</span></span>
                     </div>
-                    <div class="border-l border-[#22293A] pl-6">
+                    <div class="border-l border-[#1F273B] pl-6">
                         <span class="text-neutral-400 text-xs font-mono uppercase tracking-wider block">Винрейт</span>
                         <span class="font-faceit font-bold text-2xl {{ $user->winrate >= 50 ? 'text-emerald-400' : 'text-white' }}">{{ $user->winrate }}%</span>
                     </div>
-                    <div class="border-l border-[#22293A] pl-6">
+                    <div class="border-l border-[#1F273B] pl-6">
                         <span class="text-neutral-400 text-xs font-mono uppercase tracking-wider block">Матчей</span>
                         <span class="font-faceit font-bold text-2xl text-white">{{ $user->matches_count }}</span>
                     </div>
-                    <div class="border-l border-[#22293A] pl-6">
+                    <div class="border-l border-[#1F273B] pl-6">
                         <span class="text-neutral-400 text-xs font-mono uppercase tracking-wider block">Победы / Поражения</span>
                         <span class="font-faceit font-bold text-xl text-emerald-400">{{ $user->wins_count }} <span class="text-neutral-500 text-sm">/</span> <span class="text-red-400">{{ $user->losses_count }}</span></span>
                     </div>
                 </div>
 
-                <!-- Admin Ban Control Bar (For Admins) -->
+                <!-- Admin Moderation Controls -->
                 @if(auth()->check() && auth()->user()->isAdmin())
-                    <div class="mt-4 pt-4 border-t border-[#22293A] flex flex-wrap items-center justify-between gap-3 bg-[#0C0E14] p-3.5 rounded-xl border border-[#22293A]">
+                    <div class="mt-4 pt-4 border-t border-[#1F273B] flex flex-wrap items-center justify-between gap-3 bg-[#0E121B] p-3.5 rounded-xl border border-[#1F273B]">
                         <div class="flex items-center space-x-2 text-xs font-mono">
                             <span class="text-[#FF5500] font-bold">МОДЕРАЦИЯ:</span>
                             @if($user->isBanned())
@@ -129,8 +130,8 @@
 
     <!-- Profile Edit Form (For Account Owner) -->
     @if($isOwnProfile)
-    <div class="bg-[#121620] border border-[#22293A] rounded-2xl p-6 sm:p-8 shadow-xl">
-        <h2 class="text-lg font-faceit font-bold text-white uppercase tracking-wider mb-4 pb-3 border-b border-[#22293A]">
+    <div class="bg-[#121622] border border-[#1F273B] rounded-2xl p-6 sm:p-8 shadow-xl">
+        <h2 class="text-lg font-faceit font-bold text-white uppercase tracking-wider mb-4 pb-3 border-b border-[#1F273B]">
             Настройки профиля
         </h2>
 
@@ -142,7 +143,7 @@
                 <input 
                     type="text" 
                     wire:model="name" 
-                    class="w-full bg-[#0C0E14] border border-[#22293A] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
+                    class="w-full bg-[#0A0D14] border border-[#1F273B] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
                 @error('name') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -159,7 +160,7 @@
                     type="text" 
                     wire:model="steamIdInput" 
                     placeholder="76561198000000001"
-                    class="w-full bg-[#0C0E14] border border-[#22293A] text-white font-mono text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
+                    class="w-full bg-[#0A0D14] border border-[#1F273B] text-white font-mono text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
                 @error('steamIdInput') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
                 <p class="text-[11px] text-neutral-500 mt-1.5 font-mono">
                     Для корректного подключения к серверу CS2 ваш Steam ID должен совпадать с аккаунтом, с которого вы играете.
@@ -168,7 +169,7 @@
 
             <button 
                 type="submit" 
-                class="px-6 py-2.5 bg-[#FF5500] hover:bg-[#FF6E1A] text-white font-faceit font-bold text-sm uppercase tracking-wider rounded-xl transition cursor-pointer">
+                class="px-6 py-2.5 bg-[#FF5500] hover:bg-[#FF6E1A] text-white font-faceit font-bold text-sm uppercase tracking-wider rounded-xl transition cursor-pointer shadow-[0_0_15px_rgba(255,85,0,0.3)]">
                 Сохранить изменения
             </button>
         </form>
@@ -176,8 +177,8 @@
     @endif
 
     <!-- Match History -->
-    <div class="bg-[#121620] border border-[#22293A] rounded-2xl p-6 sm:p-8 shadow-xl">
-        <h2 class="text-lg font-faceit font-bold text-white uppercase tracking-wider mb-4 pb-3 border-b border-[#22293A]">
+    <div class="bg-[#121622] border border-[#1F273B] rounded-2xl p-6 sm:p-8 shadow-xl">
+        <h2 class="text-lg font-faceit font-bold text-white uppercase tracking-wider mb-4 pb-3 border-b border-[#1F273B]">
             История сыгранных матчей
         </h2>
 
@@ -196,7 +197,7 @@
                         $oppScore = $isP1 ? $m->score_player2 : $m->score_player1;
                         $eloDelta = $isP1 ? $m->elo_change_p1 : $m->elo_change_p2;
                     @endphp
-                    <div class="p-3.5 bg-[#0C0E14] border border-[#22293A] hover:border-white/20 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition">
+                    <div class="p-3.5 bg-[#0A0D14] border border-[#1F273B] hover:border-white/20 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition">
                         <div class="flex items-center space-x-3.5">
                             <span class="w-24 text-center py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider {{ $isWin ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/10 text-red-400 border border-red-500/30' }}">
                                 {{ $isWin ? 'ПОБЕДА' : 'ПОРАЖЕНИЕ' }}
@@ -213,7 +214,7 @@
                         </div>
 
                         <div class="flex items-center space-x-5">
-                            <div class="text-center bg-[#121620] px-3 py-1 rounded-lg border border-[#22293A]">
+                            <div class="text-center bg-[#121622] px-3 py-1 rounded-lg border border-[#1F273B]">
                                 <span class="font-mono text-sm font-bold text-white">{{ $myScore }} : {{ $oppScore }}</span>
                             </div>
 
@@ -233,7 +234,7 @@
                                 @endif
                             </div>
 
-                            <a href="{{ route('match.lobby', ['uuid' => $m->uuid]) }}" class="px-3 py-1.5 bg-[#181E2B] hover:bg-[#FF5500] text-neutral-300 hover:text-white rounded-lg text-xs font-faceit font-bold uppercase tracking-wider border border-[#22293A] hover:border-[#FF5500] transition">
+                            <a href="{{ route('match.lobby', ['uuid' => $m->uuid]) }}" class="px-3.5 py-1.5 bg-[#171C2B] hover:bg-[#FF5500] text-neutral-300 hover:text-white rounded-lg text-xs font-faceit font-bold uppercase tracking-wider border border-[#1F273B] hover:border-[#FF5500] transition">
                                 Комната
                             </a>
                         </div>

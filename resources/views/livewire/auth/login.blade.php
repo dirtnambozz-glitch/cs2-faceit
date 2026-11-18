@@ -1,13 +1,12 @@
 <div class="max-w-md mx-auto py-10">
-    <div class="bg-[#121620] border border-[#22293A] rounded-2xl p-8 sm:p-10 shadow-xl relative overflow-hidden">
+    <div class="bg-[#121622] border border-[#1F273B] rounded-2xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
         <!-- Subtle Top Accent -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FF5500] to-transparent"></div>
 
-        <!-- Logo & Header -->
+        <!-- Vector Logo & Brand Header -->
         <div class="text-center mb-6">
-            <div class="relative inline-block mb-3">
-                <img src="/images/rivalis-logo.jpg" alt="RIVALIS Logo" class="w-14 h-14 rounded-xl object-cover border border-[#FF5500]/50 shadow-[0_0_15px_rgba(255,85,0,0.3)]">
-                <div class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#FF5500] rounded-full animate-pulse"></div>
+            <div class="flex justify-center mb-3">
+                <x-logo size="lg" :showText="false" />
             </div>
             <h1 class="text-2xl sm:text-3xl font-faceit font-extrabold text-white uppercase tracking-wider">
                 ВХОД В <span class="text-[#FF5500]">RIVALIS</span>
@@ -41,7 +40,7 @@
         </a>
 
         <!-- Manual Steam ID Fallback Form -->
-        <div class="mb-5 bg-[#0C0E14] border border-[#22293A] rounded-xl p-3">
+        <div class="mb-5 bg-[#0A0D14] border border-[#1F273B] rounded-xl p-3">
             <div class="text-[11px] font-mono font-semibold text-neutral-400 uppercase tracking-wider mb-2 flex items-center justify-between">
                 <span class="text-[#FF5500]">ВХОД ПО STEAMID64</span>
                 <span class="text-neutral-500 lowercase">(без пароля)</span>
@@ -52,11 +51,11 @@
                     type="text" 
                     name="steam_input" 
                     value="{{ old('steam_input') }}"
-                    placeholder="76561198... или ссылка"
-                    class="flex-1 bg-[#121620] border border-[#22293A] text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-[#FF5500] font-mono">
+                    placeholder="76561198... или ссылка на профиль"
+                    class="flex-1 bg-[#121622] border border-[#1F273B] text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-[#FF5500] font-mono">
                 <button 
                     type="submit" 
-                    class="px-3.5 py-2 bg-[#181E2B] hover:bg-[#FF5500] text-white font-faceit font-bold text-xs uppercase tracking-wider rounded-lg border border-[#22293A] hover:border-[#FF5500] transition">
+                    class="px-3.5 py-2 bg-[#171C2B] hover:bg-[#FF5500] text-white font-faceit font-bold text-xs uppercase tracking-wider rounded-lg border border-[#1F273B] hover:border-[#FF5500] transition">
                     Войти
                 </button>
             </form>
@@ -65,8 +64,8 @@
 
         <!-- Divider -->
         <div class="relative flex items-center justify-center my-5">
-            <div class="border-t border-[#22293A] w-full"></div>
-            <span class="bg-[#121620] px-3 text-xs uppercase font-mono text-neutral-500 relative">или через email</span>
+            <div class="border-t border-[#1F273B] w-full"></div>
+            <span class="bg-[#121622] px-3 text-xs uppercase font-mono text-neutral-500 relative">или через email</span>
         </div>
 
         <!-- Login Form -->
@@ -79,7 +78,7 @@
                     type="email" 
                     wire:model="email" 
                     placeholder="player@rivalis.gg"
-                    class="w-full bg-[#0C0E14] border border-[#22293A] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
+                    class="w-full bg-[#0A0D14] border border-[#1F273B] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
                 @error('email') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -91,13 +90,13 @@
                     type="password" 
                     wire:model="password" 
                     placeholder="••••••••"
-                    class="w-full bg-[#0C0E14] border border-[#22293A] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
+                    class="w-full bg-[#0A0D14] border border-[#1F273B] text-white text-sm px-4 py-2.5 rounded-xl focus:outline-none focus:border-[#FF5500]">
                 @error('password') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <div class="flex items-center justify-between text-xs text-neutral-400 pt-1">
                 <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" wire:model="remember" class="rounded bg-[#0C0E14] border-[#22293A] text-[#FF5500] focus:ring-0">
+                    <input type="checkbox" wire:model="remember" class="rounded bg-[#0A0D14] border-[#1F273B] text-[#FF5500] focus:ring-0">
                     <span>Запомнить меня</span>
                 </label>
             </div>
