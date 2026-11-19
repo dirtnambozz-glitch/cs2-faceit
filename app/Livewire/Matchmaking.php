@@ -22,6 +22,18 @@ class Matchmaking extends Component
     public bool $accepted = false;
     public int $acceptedCount = 0;
     public int $acceptRemainingSeconds = 20;
+    public array $selectedMaps = ['de_mirage', 'de_inferno', 'de_nuke', 'de_anubis'];
+
+    public function toggleMap(string $mapCode): void
+    {
+        if (in_array($mapCode, $this->selectedMaps)) {
+            if (count($this->selectedMaps) > 1) {
+                $this->selectedMaps = array_values(array_diff($this->selectedMaps, [$mapCode]));
+            }
+        } else {
+            $this->selectedMaps[] = $mapCode;
+        }
+    }
 
     public function mount(): void
     {
