@@ -1,59 +1,55 @@
-<div wire:poll.1000ms="loadMatch" class="space-y-8 animate-fadeIn">
-    <!-- Match Room Top Header (Cyber Versus HUD) -->
-    <div class="relative bg-gradient-to-b from-[#14081E] via-[#0E0515] to-[#08030D] border border-white/[0.08] rounded-3xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden">
-        <!-- Background Ambient Neon Glow -->
-        <div class="absolute -right-20 -top-20 w-64 h-64 bg-[#FF0055]/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-[#E1066A]/15 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div wire:poll.1000ms="loadMatch" class="space-y-6">
+    <!-- Match Versus Header (FACEIT Style) -->
+    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <!-- Player 1 (Left) -->
             <div class="flex items-center space-x-4 flex-1 w-full md:w-auto">
                 <div class="relative shrink-0">
-                    <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-[#FF0055]/70 bg-neutral-950 object-cover shadow-[0_0_20px_rgba(255,0,85,0.35)]" alt="P1">
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-md flex items-center justify-center font-cyber text-xs font-black bg-[#FF0055] text-white shadow">
+                    <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl border border-white/[0.1] bg-neutral-900 object-cover" alt="P1">
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-lg flex items-center justify-center font-heading font-bold text-xs bg-[#FF5500] text-white shadow-sm">
                         {{ $match->player1->level }}
                     </div>
                 </div>
                 <div class="min-w-0">
                     <div class="flex items-center space-x-2">
-                        <a href="{{ route('profile', ['id' => $match->player1->id]) }}" class="text-xl sm:text-2xl font-cyber font-black text-white tracking-wide hover:text-[#FF2A6D] transition truncate">
+                        <a href="{{ route('profile', ['id' => $match->player1->id]) }}" class="text-lg sm:text-xl font-heading font-bold text-white hover:text-[#FF5500] transition truncate">
                             {{ $match->player1->name }}
                         </a>
                         @if($match->player1->is_bot)
-                            <span class="text-[9px] font-mono bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40 px-2 py-0.5 rounded uppercase font-semibold shrink-0">BOT</span>
+                            <span class="text-[10px] font-mono bg-white/[0.06] text-neutral-300 px-1.5 py-0.5 rounded uppercase">AI BOT</span>
                         @endif
                     </div>
-                    <div class="flex items-center space-x-2.5 mt-1 font-mono text-xs text-neutral-400">
-                        <span class="text-[#FF0055] font-bold tabular-nums">{{ $match->player1->elo }} ELO</span>
-                        <span>•</span>
-                        <span class="tabular-nums">{{ $match->player1->winrate }}% WR</span>
+                    <div class="flex items-center space-x-2 mt-1 font-mono text-xs text-neutral-400">
+                        <span class="text-white font-semibold tabular-nums">{{ $match->player1->elo }} ELO</span>
+                        <span class="text-neutral-600">•</span>
+                        <span class="tabular-nums">{{ $match->player1->winrate }}% Winrate</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Match Center Status / Score -->
+            <!-- Match Center Status -->
             <div class="text-center px-4 shrink-0 flex flex-col items-center">
                 @if($match->status === 'voting')
-                    <div class="inline-flex items-center space-x-2 bg-[#FF0055]/20 border border-[#FF0055] text-[#FF2A6D] px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest shadow-[0_0_20px_rgba(255,0,85,0.4)] animate-pulse">
-                        <span class="w-2 h-2 rounded-full bg-[#FF0055] animate-ping"></span>
-                        <span>ВЫБОР КАРТ // MAP VETO</span>
+                    <div class="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/25 text-amber-300 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider mb-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span>СТАДИЯ MAP VETO</span>
                     </div>
-                    <p class="text-xs font-mono text-neutral-400 mt-2">
-                        Ход: <span class="text-white font-bold">{{ $match->currentTurnPlayer ? $match->currentTurnPlayer->name : 'Ожидание' }}</span>
-                    </p>
+                    <div class="text-xs font-mono text-neutral-400 mt-1">
+                        Ход: <span class="text-white font-semibold">{{ $match->currentTurnPlayer ? $match->currentTurnPlayer->name : 'Ожидание' }}</span>
+                    </div>
                 @elseif($match->status === 'ready' || $match->status === 'in_progress')
-                    <div class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span>МАТЧ ГОТОВ К ИГРЕ</span>
+                    <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 px-3.5 py-1 rounded-full text-xs font-mono uppercase tracking-wider mb-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span>МАТЧ АКТИВЕН</span>
                     </div>
-                    <div class="text-3xl font-cyber font-black text-white uppercase mt-1 tracking-wider">
+                    <div class="text-2xl font-heading font-extrabold text-white uppercase tracking-tight">
                         {{ $match->map ? $match->map->name : 'CS2 Map' }}
                     </div>
                 @elseif($match->status === 'finished')
-                    <div class="inline-flex items-center space-x-2 bg-[#FF0055]/20 border border-[#FF0055]/40 text-[#FF2A6D] px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest mb-1">
+                    <div class="inline-flex items-center space-x-2 bg-white/[0.06] border border-white/[0.08] text-neutral-300 px-3 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider mb-1">
                         <span>МАТЧ ЗАВЕРШЕН</span>
                     </div>
-                    <div class="text-4xl sm:text-5xl font-cyber font-black text-white tracking-widest tabular-nums">
+                    <div class="text-3xl sm:text-4xl font-heading font-black text-white tracking-wider tabular-nums">
                         {{ $match->score_player1 }} : {{ $match->score_player2 }}
                     </div>
                 @endif
@@ -64,30 +60,30 @@
                 <div class="min-w-0">
                     <div class="flex items-center justify-end space-x-2">
                         @if($match->player2 && $match->player2->is_bot)
-                            <span class="text-[9px] font-mono bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40 px-2 py-0.5 rounded uppercase font-semibold shrink-0">BOT</span>
+                            <span class="text-[10px] font-mono bg-white/[0.06] text-neutral-300 px-1.5 py-0.5 rounded uppercase">AI BOT</span>
                         @endif
                         @if($match->player2)
-                            <a href="{{ route('profile', ['id' => $match->player2->id]) }}" class="text-xl sm:text-2xl font-cyber font-black text-white tracking-wide hover:text-[#FF2A6D] transition truncate">
+                            <a href="{{ route('profile', ['id' => $match->player2->id]) }}" class="text-lg sm:text-xl font-heading font-bold text-white hover:text-[#FF5500] transition truncate">
                                 {{ $match->player2->name }}
                             </a>
                         @else
-                            <span class="text-xl sm:text-2xl font-cyber font-black text-white tracking-wide">
+                            <span class="text-lg font-heading font-bold text-neutral-400">
                                 Ожидание...
                             </span>
                         @endif
                     </div>
                     @if($match->player2)
-                    <div class="flex items-center justify-end space-x-2.5 mt-1 font-mono text-xs text-neutral-400">
-                        <span class="tabular-nums">{{ $match->player2->winrate }}% WR</span>
-                        <span>•</span>
-                        <span class="text-[#FF0055] font-bold tabular-nums">{{ $match->player2->elo }} ELO</span>
+                    <div class="flex items-center justify-end space-x-2 mt-1 font-mono text-xs text-neutral-400">
+                        <span class="tabular-nums">{{ $match->player2->winrate }}% Winrate</span>
+                        <span class="text-neutral-600">•</span>
+                        <span class="text-white font-semibold tabular-nums">{{ $match->player2->elo }} ELO</span>
                     </div>
                     @endif
                 </div>
                 <div class="relative shrink-0">
-                    <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'opponent') }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-[#FF0055]/70 bg-neutral-950 object-cover shadow-[0_0_20px_rgba(255,0,85,0.35)]" alt="P2">
+                    <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'opponent') }}" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl border border-white/[0.1] bg-neutral-900 object-cover" alt="P2">
                     @if($match->player2)
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-md flex items-center justify-center font-cyber text-xs font-black bg-[#FF0055] text-white shadow">
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-lg flex items-center justify-center font-heading font-bold text-xs bg-[#FF5500] text-white shadow-sm">
                         {{ $match->player2->level }}
                     </div>
                     @endif
@@ -96,27 +92,27 @@
         </div>
     </div>
 
-    <!-- MAIN BODY: VETO vs READY vs FINISHED -->
+    <!-- MAIN BODY: VETO vs CONNECT vs RESULT -->
     @if($match->status === 'voting')
         <!-- MAP VETO SECTION -->
-        <div class="bg-gradient-to-b from-[#120817] to-[#0A040E] border border-white/[0.08] hover:border-[#FF0055]/40 rounded-3xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.6)] mb-8 transition-all">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/[0.08]">
+        <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/[0.06]">
                 <div>
-                    <h2 class="text-2xl sm:text-3xl font-cyber font-black text-white uppercase tracking-wider">
-                        ВЫЧЕРКИВАНИЕ КАРТ // MAP VETO
+                    <h2 class="text-xl sm:text-2xl font-heading font-bold text-white tracking-tight">
+                        Вычеркивание карт (Map Veto)
                     </h2>
-                    <p class="text-neutral-400 text-xs sm:text-sm mt-1 font-mono">
-                        Каждый игрок по очереди вычеркивает карту. Последняя оставшаяся карта станет ареной поединка.
+                    <p class="text-neutral-400 text-xs sm:text-sm mt-0.5 font-mono">
+                        Поочередный бан карт. Последняя оставшаяся карта определит локацию матча.
                     </p>
                 </div>
                 <div class="text-right shrink-0">
                     @if($match->current_turn_player_id === auth()->id())
-                        <span class="px-5 py-2.5 bg-gradient-to-r from-[#FF0055] to-[#E1066A] text-white font-cyber font-black text-xs uppercase tracking-widest rounded-xl shadow-[0_0_25px_rgba(255,0,85,0.6)] animate-pulse inline-block border border-white/20">
+                        <span class="px-4 py-2 bg-[#FF5500] text-white font-heading font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm animate-pulse inline-block">
                             ВАШ ХОД — ЗАБАНИТЬ КАРТУ
                         </span>
                     @else
-                        <span class="px-5 py-2.5 bg-neutral-900/90 text-neutral-400 font-mono text-xs uppercase tracking-widest rounded-xl border border-white/10 inline-block">
-                            ОЖИДАНИЕ ХОДА СОПЕРНИКА...
+                        <span class="px-4 py-2 bg-white/[0.04] text-neutral-400 font-mono text-xs uppercase tracking-wider rounded-xl border border-white/[0.06] inline-block">
+                            Ожидание хода соперника...
                         </span>
                     @endif
                 </div>
@@ -131,36 +127,36 @@
                     @endphp
                     <div 
                         @if($canBan) wire:click="banMap({{ $map->id }})" @endif
-                        class="relative rounded-2xl overflow-hidden border-2 transition-all duration-300 group
-                            {{ $isBanned ? 'border-neutral-900 opacity-25 grayscale pointer-events-none' : ($canBan ? 'border-white/[0.1] hover:border-[#FF0055] hover:shadow-[0_0_30px_rgba(255,0,85,0.5)] cursor-pointer hover:-translate-y-1' : 'border-white/[0.08] opacity-80') }}">
+                        class="relative rounded-2xl overflow-hidden border transition-all duration-200 group
+                            {{ $isBanned ? 'border-neutral-900 opacity-25 grayscale pointer-events-none' : ($canBan ? 'border-white/[0.1] hover:border-[#FF5500] cursor-pointer hover:-translate-y-0.5 shadow-sm' : 'border-white/[0.07] opacity-85') }}">
                         
                         <!-- Map Image Thumbnail -->
                         <div class="h-44 bg-neutral-950 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('{{ $map->image }}')">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#08040A] via-[#08040A]/40 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                         </div>
 
                         <!-- Card Content -->
                         <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
                             <div>
-                                <p class="text-[10px] font-mono text-[#FF0055] uppercase tracking-wider font-bold">{{ $map->code }}</p>
-                                <p class="text-xl font-cyber font-black text-white tracking-wide">{{ $map->name }}</p>
+                                <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">{{ $map->code }}</div>
+                                <div class="text-lg font-heading font-bold text-white tracking-tight">{{ $map->name }}</div>
                             </div>
 
                             @if($isBanned)
-                                <span class="px-3 py-1 bg-red-600/90 text-white font-cyber font-black text-xs uppercase tracking-wider rounded-lg shadow">
+                                <span class="px-2.5 py-1 bg-red-600/90 text-white font-mono font-bold text-xs uppercase rounded">
                                     BANNED
                                 </span>
                             @elseif($canBan)
-                                <span class="px-4 py-1.5 bg-gradient-to-r from-[#FF0055] to-[#E1066A] text-white font-cyber font-black text-xs uppercase tracking-wider rounded-xl shadow-[0_0_15px_rgba(255,0,85,0.6)] group-hover:brightness-110 transition border border-white/20">
+                                <span class="px-3 py-1.5 bg-[#FF5500] hover:bg-[#FF6E26] text-white font-heading font-bold text-xs uppercase rounded-lg shadow-sm transition">
                                     БАН
                                 </span>
                             @endif
                         </div>
 
                         @if($isBanned)
-                            <div class="absolute inset-0 flex items-center justify-center bg-black/75">
-                                <svg class="w-14 h-14 text-red-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/60">
+                                <svg class="w-10 h-10 text-red-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                             </div>
                         @endif
@@ -171,57 +167,57 @@
 
     @elseif($match->status === 'ready' || $match->status === 'in_progress')
         <!-- MATCH READY: CONNECT TO CS2 SERVER -->
-        <div class="bg-gradient-to-b from-[#14081E] via-[#0E0515] to-[#08030D] border border-white/[0.08] hover:border-[#FF0055]/30 rounded-3xl p-6 sm:p-10 mb-8 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+        <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-10 shadow-sm">
             <div class="max-w-3xl mx-auto text-center">
                 <!-- Selected Map Banner -->
-                <div class="inline-block relative rounded-3xl overflow-hidden border-2 border-[#FF0055] mb-6 shadow-[0_0_40px_rgba(255,0,85,0.35)] w-full max-w-xl group">
-                    <img src="{{ $match->map->image ?? '' }}" alt="{{ $match->map->name ?? '' }}" class="w-full h-56 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#08040A] via-[#08040A]/50 to-transparent flex flex-col justify-end p-6">
-                        <span class="text-xs uppercase font-mono font-bold tracking-widest text-[#FF0055] bg-[#FF0055]/20 px-3.5 py-1 rounded-md w-max mx-auto border border-[#FF0055]/40 mb-1">
-                            РЕШАЮЩАЯ КАРТА ПОЕДИНКА
+                <div class="inline-block relative rounded-2xl overflow-hidden border border-white/[0.1] mb-6 shadow-md w-full max-w-xl group aspect-[16/9] max-h-72">
+                    <img src="{{ $match->map->image ?? '' }}" alt="{{ $match->map->name ?? '' }}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                        <span class="text-xs uppercase font-mono font-semibold tracking-wider text-[#FF5500] bg-black/60 backdrop-blur-sm px-3 py-1 rounded-md w-max mx-auto border border-white/[0.1] mb-1">
+                            РЕШАЮЩАЯ КАРТА
                         </span>
-                        <h3 class="text-4xl sm:text-5xl font-cyber font-black text-white tracking-wider uppercase mt-1">
+                        <h3 class="text-3xl sm:text-4xl font-heading font-extrabold text-white uppercase tracking-tight mt-1">
                             {{ $match->map->name ?? 'Mirage' }}
                         </h3>
                     </div>
                 </div>
 
-                <!-- FACEIT-STYLE CONNECT & LEAVER TIMEOUT HUD -->
-                <div class="bg-[#08040A] border-2 {{ $match->connectRemainingSeconds() <= 60 && !$match->player1_connected && !$match->player2_connected ? 'border-red-500 shadow-[0_0_35px_rgba(239,68,68,0.4)]' : 'border-[#FF0055]/50 shadow-[0_0_25px_rgba(255,0,85,0.2)]' }} rounded-3xl p-6 mb-6 text-left">
-                    <div class="flex flex-col sm:flex-row items-center justify-between pb-4 mb-4 border-b border-white/10 gap-3">
-                        <div class="flex items-center space-x-2.5">
-                            <span class="w-3 h-3 rounded-full {{ $match->connectRemainingSeconds() > 0 ? 'bg-amber-400 animate-ping' : 'bg-red-500' }}"></span>
-                            <span class="font-cyber font-black text-sm uppercase tracking-wider text-white">
-                                ТАЙМЕР ПОДКЛЮЧЕНИЯ И ЗАЩИТА ОТ ЛИВЕРОВ
+                <!-- Connect & Leaver Timeout Box -->
+                <div class="bg-[#0E131C] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 mb-4 border-b border-white/[0.06] gap-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full {{ $match->connectRemainingSeconds() > 0 ? 'bg-amber-400 animate-pulse' : 'bg-red-500' }}"></span>
+                            <span class="font-heading font-bold text-sm text-white uppercase tracking-wider">
+                                Таймер подключения к матчу
                             </span>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-xs font-mono text-neutral-400 uppercase">ОСТАЛОСЬ:</span>
-                            <span class="font-cyber font-black text-2xl tabular-nums {{ $match->connectRemainingSeconds() <= 60 ? 'text-red-500 animate-pulse' : 'text-amber-400' }}">
+                        <div class="flex items-center space-x-2 font-mono">
+                            <span class="text-xs text-neutral-400 uppercase">Осталось:</span>
+                            <span class="font-bold text-xl tabular-nums {{ $match->connectRemainingSeconds() <= 60 ? 'text-red-400 animate-pulse' : 'text-amber-400' }}">
                                 {{ sprintf('%02d:%02d', floor($match->connectRemainingSeconds() / 60), $match->connectRemainingSeconds() % 60) }}
                             </span>
                         </div>
                     </div>
 
                     <!-- Players Connection Badges -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                         <!-- Player 1 Status -->
-                        <div class="bg-[#120817] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                        <div class="bg-[#0B0E14] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-10 h-10 rounded-xl border border-white/20 object-cover" alt="P1">
+                                <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-9 h-9 rounded-lg border border-white/[0.1] object-cover" alt="P1">
                                 <div>
-                                    <p class="font-cyber font-bold text-sm text-white">{{ $match->player1->name }}</p>
-                                    <p class="text-[10px] font-mono text-neutral-400">Слот 1</p>
+                                    <div class="font-semibold text-xs text-white">{{ $match->player1->name }}</div>
+                                    <div class="text-[10px] font-mono text-neutral-500">Слот 1</div>
                                 </div>
                             </div>
                             @if($match->player1_connected)
-                                <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 font-mono font-semibold text-xs flex items-center space-x-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                     <span>НА СЕРВЕРЕ</span>
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 animate-pulse">
-                                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                <span class="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/25 font-mono font-semibold text-xs flex items-center space-x-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                                     <span>ОЖИДАЕТСЯ...</span>
                                 </span>
                             @endif
@@ -232,22 +228,22 @@
                             $isP2Bot = $match->player2 && $match->player2->is_bot;
                             $p2Connected = $match->player2_connected || $isP2Bot;
                         @endphp
-                        <div class="bg-[#120817] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                        <div class="bg-[#0B0E14] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'bot') }}" class="w-10 h-10 rounded-xl border border-white/20 object-cover" alt="P2">
+                                <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'bot') }}" class="w-9 h-9 rounded-lg border border-white/[0.1] object-cover" alt="P2">
                                 <div>
-                                    <p class="font-cyber font-bold text-sm text-white">{{ $match->player2->name ?? 'Оппонент' }}</p>
-                                    <p class="text-[10px] font-mono text-neutral-400">Слот 2</p>
+                                    <div class="font-semibold text-xs text-white">{{ $match->player2->name ?? 'Оппонент' }}</div>
+                                    <div class="text-[10px] font-mono text-neutral-500">Слот 2</div>
                                 </div>
                             </div>
                             @if($p2Connected)
-                                <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 font-mono font-semibold text-xs flex items-center space-x-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                     <span>НА СЕРВЕРЕ</span>
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/50 font-cyber font-bold text-xs uppercase tracking-wider flex items-center space-x-1.5 animate-pulse">
-                                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                <span class="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/25 font-mono font-semibold text-xs flex items-center space-x-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                                     <span>ОЖИДАЕТСЯ...</span>
                                 </span>
                             @endif
@@ -255,48 +251,43 @@
                     </div>
 
                     <!-- Warning note -->
-                    <div class="p-3 bg-red-950/40 border border-red-500/30 rounded-xl text-[11px] font-mono text-red-200 flex items-start space-x-2">
-                        <span class="text-red-400 font-bold shrink-0">⚠️ ШТРАФ:</span>
-                        <span>Если игрок не подключится к CS2 до истечения таймера (или выйдет из матча и не вернется за 3 минуты), ему автоматически присваивается поражение (техлуз), вычитается <strong>25 ELO</strong> и выдается бан поиска матчей.</span>
+                    <div class="p-3 bg-red-950/25 border border-red-500/20 rounded-xl text-xs font-mono text-neutral-300 flex items-start space-x-2">
+                        <span class="text-red-400 font-bold shrink-0">⚠️ Регламент:</span>
+                        <span>При неявке на сервер в течение 5 минут или досрочном выходе игроку автоматически засчитывается поражение (-25 ELO) и выдается временный бан.</span>
                     </div>
                 </div>
 
                 <!-- RCON Status Alert -->
                 @if($rconStatusMessage)
-                    <div class="mb-5 p-3.5 rounded-2xl flex items-center justify-between text-xs {{ $rconSuccess ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : 'bg-amber-500/10 border border-amber-500/30 text-amber-400' }}">
+                    <div class="mb-5 p-3 rounded-xl flex items-center justify-between text-xs {{ $rconSuccess ? 'bg-emerald-500/10 border border-emerald-500/25 text-emerald-400' : 'bg-amber-500/10 border border-amber-500/25 text-amber-400' }}">
                         <div class="flex items-center space-x-2">
-                            @if($rconSuccess)
-                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            @else
-                                <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                            @endif
                             <span>{{ $rconStatusMessage }}</span>
                         </div>
                         @if(!$rconSuccess)
                             <div class="flex items-center space-x-2">
-                                <button wire:click="retryRcon" class="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-white rounded text-[11px] font-semibold transition cursor-pointer">
+                                <button wire:click="retryRcon" class="px-2.5 py-1 bg-white/[0.08] hover:bg-white/[0.15] text-white rounded text-xs transition cursor-pointer">
                                     Повторить смену карты
                                 </button>
-                                <a href="{{ route('server.settings') }}" class="px-2.5 py-1 bg-[#FF0055] hover:bg-[#FF2A6D] text-white rounded text-[11px] font-semibold transition">
-                                    Настройки RCON →
+                                <a href="{{ route('server.settings') }}" class="px-2.5 py-1 bg-[#FF5500] text-white rounded text-xs transition">
+                                    Настройки RCON
                                 </a>
                             </div>
                         @endif
                     </div>
                 @endif
 
-                <!-- Server Info & Connect Options (Cyber Terminal Box) -->
-                <div class="bg-[#08040A] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.08]">
-                        <div class="flex items-center space-x-2.5">
-                            <span class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse"></span>
-                            <span class="text-sm font-cyber font-bold text-white uppercase tracking-wider">Сервер: UP FaceIt CS2</span>
+                <!-- Server Info & Connect Options Box -->
+                <div class="bg-[#0E131C] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.06]">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            <span class="text-sm font-semibold text-white">Сервер: UP FaceIt CS2 (Incloudgame)</span>
                         </div>
-                        <span class="text-xs text-[#FF0055] font-mono">{{ $match->server_ip }}:{{ $match->server_port }}</span>
+                        <span class="text-xs text-neutral-400 font-mono">{{ $match->server_ip }}:{{ $match->server_port }}</span>
                     </div>
 
                     <!-- Connect Command Box -->
-                    <label class="block text-xs uppercase font-mono tracking-wider text-neutral-400 mb-2">
+                    <label class="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-2">
                         Команда подключения (для консоли CS2 ~):
                     </label>
                     <div class="flex items-center space-x-2">
@@ -305,24 +296,31 @@
                             readonly 
                             value="connect {{ $match->server_ip }}:{{ $match->server_port }}; password {{ $match->server_password }}" 
                             id="connectCmd"
-                            class="w-full bg-[#120817] border border-[#FF0055]/40 text-emerald-400 font-mono text-sm px-4 py-3.5 rounded-xl focus:outline-none">
+                            class="w-full bg-[#0B0E14] border border-white/[0.1] text-emerald-400 font-mono text-sm px-4 py-3 rounded-xl focus:outline-none">
                         <button 
                             type="button" 
-                            onclick="navigator.clipboard.writeText(document.getElementById('connectCmd').value); alert('Команда скопирована! Откройте консоль в CS2 (клавиша ~) и вставьте её.');"
-                            class="px-5 py-3.5 bg-[#120817] hover:bg-[#FF0055] text-white font-faceit font-bold text-sm uppercase tracking-wider rounded-xl border border-[#FF0055]/40 hover:border-[#FF0055] transition cursor-pointer whitespace-nowrap">
+                            onclick="navigator.clipboard.writeText(document.getElementById('connectCmd').value); alert('Команда скопирована! Откройте консоль в CS2 (~) и вставьте.');"
+                            class="px-5 py-3 bg-white/[0.06] hover:bg-white/[0.1] text-white font-medium text-xs uppercase tracking-wider rounded-xl border border-white/[0.08] transition cursor-pointer whitespace-nowrap">
                             Копировать
                         </button>
                     </div>
 
-                    <!-- Glowing Big Neon Button for 1-Click Copy -->
-                    <div class="mt-4">
+                    <!-- Primary Connect Button -->
+                    <div class="mt-4 flex flex-col sm:flex-row gap-3">
                         <button 
                             type="button" 
                             id="copyMainBtn"
-                            onclick="navigator.clipboard.writeText(document.getElementById('connectCmd').value); this.innerHTML='<span>✓ СКОПИРОВАНО! ВСТАВЬТЕ В КОНСОЛЬ CS2 (~)</span>'; this.classList.remove('from-[#FF0055]', 'to-[#E1066A]'); this.classList.add('bg-emerald-600');"
-                            class="w-full py-4 bg-gradient-to-r from-[#FF0055] via-[#FF1A75] to-[#E1066A] hover:brightness-110 text-white font-cyber font-black text-lg sm:text-xl uppercase tracking-widest rounded-2xl shadow-[0_0_35px_rgba(255,0,85,0.6)] text-center transition cursor-pointer flex items-center justify-center space-x-2 border border-white/20">
-                            <span>📋 СКОПИРОВАТЬ IP ДЛЯ КОНСОЛИ CS2</span>
+                            onclick="navigator.clipboard.writeText(document.getElementById('connectCmd').value); this.innerText='✓ СКОПИРОВАНО В БУФЕР ОБМЕНА'; this.classList.remove('bg-[#FF5500]', 'hover:bg-[#FF6E26]'); this.classList.add('bg-emerald-600');"
+                            class="flex-1 py-3.5 bg-[#FF5500] hover:bg-[#FF6E26] text-white font-heading font-bold text-sm uppercase tracking-wider rounded-xl shadow-sm text-center transition cursor-pointer flex items-center justify-center space-x-2">
+                            <span>📋 СКОПИРОВАТЬ IP ДЛЯ КОНСОЛИ (~)</span>
                         </button>
+                        
+                        <!-- Direct Steam Protocol Connect -->
+                        <a 
+                            href="steam://connect/{{ $match->server_ip }}:{{ $match->server_port }}/{{ $match->server_password }}" 
+                            class="px-6 py-3.5 bg-white/[0.05] hover:bg-white/[0.09] text-white font-heading font-semibold text-sm uppercase tracking-wider rounded-xl border border-white/[0.1] text-center transition flex items-center justify-center space-x-2">
+                            <span>ЗАПУСК ЧЕРЕЗ STEAM ↗</span>
+                        </a>
                     </div>
 
                     @if(($match->player2 && $match->player2->is_bot) || (auth()->check() && auth()->user()->isAdmin()))
@@ -330,102 +328,94 @@
                             <button 
                                 type="button" 
                                 wire:click="startBotDuelInGame"
-                                class="w-full py-3.5 bg-[#120817] hover:bg-[#1A0D22] text-amber-300 hover:text-white font-cyber font-bold text-sm uppercase tracking-wider rounded-2xl border border-amber-500/40 hover:border-amber-400 transition cursor-pointer flex items-center justify-center space-x-2 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-                                <span>🤖 ЗАСПАВНИТЬ БОТА В CS2 ДЛЯ 1v1 ТЕСТА (RCON)</span>
+                                class="w-full py-2.5 bg-white/[0.03] hover:bg-white/[0.06] text-amber-300 font-mono text-xs rounded-xl border border-amber-500/30 transition cursor-pointer flex items-center justify-center space-x-2">
+                                <span>🤖 Заспавнить Бота на сервере для дуэли (RCON)</span>
                             </button>
                         </div>
                     @endif
 
-                    <!-- Step-by-step connection guide -->
-                    <div class="mt-4 bg-[#120817]/70 rounded-xl p-3.5 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-around gap-2 border border-white/[0.06] font-mono">
+                    <!-- Step-by-step Connection Steps -->
+                    <div class="mt-4 bg-[#0B0E14] rounded-xl p-3 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-around gap-2 font-mono border border-white/[0.04]">
                         <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-md bg-[#FF0055]/20 text-[#FF0055] font-bold flex items-center justify-center text-[11px] border border-[#FF0055]/40">1</span>
+                            <span class="w-5 h-5 rounded bg-white/[0.08] text-white font-bold flex items-center justify-center text-[10px]">1</span>
                             <span>Запустите CS2</span>
                         </div>
-                        <span class="text-[#FF0055]/40 hidden sm:inline">→</span>
+                        <span class="text-neutral-600 hidden sm:inline">→</span>
                         <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-md bg-[#FF0055]/20 text-[#FF0055] font-bold flex items-center justify-center text-[11px] border border-[#FF0055]/40">2</span>
-                            <span>Консоль <kbd class="px-1.5 py-0.5 bg-neutral-900 text-white rounded font-mono text-[11px] border border-neutral-700">~</kbd></span>
+                            <span class="w-5 h-5 rounded bg-white/[0.08] text-white font-bold flex items-center justify-center text-[10px]">2</span>
+                            <span>Консоль <kbd class="px-1 py-0.5 bg-white/[0.08] text-white rounded">~</kbd></span>
                         </div>
-                        <span class="text-[#FF0055]/40 hidden sm:inline">→</span>
+                        <span class="text-neutral-600 hidden sm:inline">→</span>
                         <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-md bg-[#FF0055]/20 text-[#FF0055] font-bold flex items-center justify-center text-[11px] border border-[#FF0055]/40">3</span>
-                            <span>Вставьте и <kbd class="px-1.5 py-0.5 bg-neutral-900 text-white rounded font-mono text-[11px] border border-neutral-700">Enter</kbd></span>
+                            <span class="w-5 h-5 rounded bg-white/[0.08] text-white font-bold flex items-center justify-center text-[10px]">3</span>
+                            <span>Вставьте и Enter</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- MatchZy Automatic Telemetry Box -->
-                <div class="bg-[#08040A] border border-emerald-500/30 rounded-2xl p-6 text-left shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-emerald-500/20">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></span>
-                            <span class="text-xs font-cyber font-bold uppercase tracking-wider text-emerald-300">
-                                АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С СЕРВЕРОМ // MATCHZY
-                            </span>
-                        </div>
-                        <span class="text-[11px] font-mono text-emerald-400">ONLINE</span>
+                <!-- MatchZy Telemetry Status -->
+                <div class="bg-[#0E131C] border border-white/[0.06] rounded-xl p-4 text-left flex items-center justify-between text-xs font-mono text-neutral-400">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span class="text-white font-medium">Автоматическая телеметрия MatchZy:</span>
+                        <span>Счет раундов и Elo обновляются сервером автоматически.</span>
                     </div>
-
-                    <p class="text-xs text-neutral-300 font-mono leading-relaxed">
-                        Сервер игры UP FaceIt самостоятельно отправляет статистику каждого раунда и итоговый результат на сайт. После завершения игры победителю и проигравшему автоматически начисляются очки Elo.
-                    </p>
+                    <span class="text-emerald-400 font-semibold">LIVE</span>
                 </div>
             </div>
         </div>
 
     @elseif($match->status === 'finished')
-        <!-- MATCH FINISHED SCREEN (CYBER VICTORY / DEFEAT BANNER) -->
+        <!-- MATCH FINISHED SCREEN -->
         @php
             $isWinner = ($match->winner_id === auth()->id());
             $myEloChange = ($match->player1_id === auth()->id()) ? $match->elo_change_p1 : $match->elo_change_p2;
         @endphp
-        <div class="bg-gradient-to-b from-[#14081E] via-[#0E0515] to-[#08030D] border-2 {{ $isWinner ? 'border-emerald-500 shadow-[0_0_50px_rgba(16,185,129,0.35)]' : 'border-[#FF0055] shadow-[0_0_50px_rgba(255,0,85,0.35)]' }} rounded-3xl p-10 mb-8 text-center relative overflow-hidden">
+        <div class="bg-[#0B0E14] border border-white/[0.08] rounded-3xl p-10 mb-8 text-center relative overflow-hidden shadow-sm">
             @if($match->forfeited_user_id)
-                <div class="mb-4 inline-flex items-center space-x-2 px-4 py-1.5 bg-red-950/80 border border-red-500/60 rounded-full text-red-300 text-xs font-mono uppercase tracking-wider">
-                    <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    <span>ТЕХНИЧЕСКОЕ ПОРАЖЕНИЕ (FORFEIT) // НЕЯВКА ИЛИ ВЫХОД С СЕРВЕРА</span>
+                <div class="mb-4 inline-flex items-center space-x-2 px-3 py-1 bg-red-950/40 border border-red-500/30 rounded-full text-red-300 text-xs font-mono uppercase tracking-wider">
+                    <span>ТЕХНИЧЕСКОЕ ПОРАЖЕНИЕ (FORFEIT)</span>
                 </div>
             @endif
 
-            <div class="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-4 {{ $isWinner ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500' : 'bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]' }}">
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 {{ $isWinner ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/10 text-red-400 border border-red-500/30' }}">
                 @if($isWinner)
-                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 @else
-                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 @endif
             </div>
 
-            <h2 class="text-4xl sm:text-6xl font-cyber font-black uppercase tracking-wider {{ $isWinner ? 'text-emerald-400' : 'text-[#FF0055]' }}">
-                {{ $isWinner ? 'ПОБЕДА!' : 'ПОРАЖЕНИЕ' }}
+            <h2 class="text-3xl sm:text-5xl font-heading font-black uppercase tracking-tight {{ $isWinner ? 'text-emerald-400' : 'text-red-400' }}">
+                {{ $isWinner ? 'ПОБЕДА' : 'ПОРАЖЕНИЕ' }}
             </h2>
 
             @if($match->forfeited_user_id)
-                <p class="text-sm font-mono text-neutral-300 mt-2">
-                    {{ $match->forfeited_user_id === auth()->id() ? 'Вы получили техническое поражение за неявку или выход с сервера.' : 'Соперник не явился на сервер в течение 5 минут. Победа присуждена вам!' }}
+                <p class="text-xs font-mono text-neutral-400 mt-2">
+                    {{ $match->forfeited_user_id === auth()->id() ? 'Вы получили техническое поражение за неявку или выход с сервера.' : 'Соперник не явился на сервер в отведенное время. Победа присуждена вам!' }}
                 </p>
             @endif
 
-            <div class="text-4xl font-cyber font-black text-white mt-3 mb-5 tabular-nums">
+            <div class="text-4xl font-mono font-bold text-white mt-3 mb-5 tabular-nums">
                 {{ $match->score_player1 }} — {{ $match->score_player2 }}
             </div>
 
-            <div class="inline-flex items-center space-x-3 bg-[#08040A] px-6 py-3 rounded-2xl border border-white/[0.08] mb-8">
-                <span class="text-xs uppercase font-mono text-neutral-400">Изменение рейтинга:</span>
-                <span class="font-cyber font-bold text-2xl tabular-nums {{ $myEloChange >= 0 ? 'text-emerald-400' : 'text-red-400' }}">
+            <div class="inline-flex items-center space-x-3 bg-white/[0.04] px-5 py-2.5 rounded-xl border border-white/[0.08] mb-8">
+                <span class="text-xs font-mono uppercase text-neutral-400">Рейтинг:</span>
+                <span class="font-mono font-bold text-xl tabular-nums {{ $myEloChange >= 0 ? 'text-emerald-400' : 'text-red-400' }}">
                     {{ $myEloChange >= 0 ? "+{$myEloChange}" : $myEloChange }} ELO
                 </span>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="{{ route('home') }}" class="px-8 py-4 bg-gradient-to-r from-[#FF0055] to-[#E1066A] hover:brightness-110 text-white font-cyber font-bold text-base uppercase tracking-wider rounded-2xl transition shadow-[0_0_25px_rgba(255,0,85,0.5)]">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="{{ route('home') }}" class="px-6 py-3 bg-[#FF5500] hover:bg-[#FF6E26] text-white font-heading font-bold text-sm uppercase tracking-wider rounded-xl transition shadow-sm">
                     Вернуться в лобби
                 </a>
-                <a href="{{ route('leaderboard') }}" class="px-7 py-4 bg-[#08040A] hover:bg-[#1A0D22] text-neutral-200 hover:text-white font-cyber font-semibold text-base uppercase tracking-wider rounded-2xl border border-white/[0.08] hover:border-[#FF0055] transition">
+                <a href="{{ route('leaderboard') }}" class="px-6 py-3 bg-white/[0.04] hover:bg-white/[0.08] text-neutral-200 hover:text-white font-heading font-semibold text-sm uppercase tracking-wider rounded-xl border border-white/[0.08] transition">
                     Таблица лидеров
                 </a>
             </div>
