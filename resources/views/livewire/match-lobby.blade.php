@@ -1,6 +1,6 @@
 <div wire:poll.1000ms="loadMatch" class="space-y-6">
     <!-- Match Versus Header (FACEIT Style) -->
-    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <!-- Player 1 (Left) -->
             <div class="flex items-center space-x-4 flex-1 w-full md:w-auto">
@@ -95,7 +95,7 @@
     <!-- MAIN BODY: VETO vs CONNECT vs RESULT -->
     @if($match->status === 'voting')
         <!-- MAP VETO SECTION -->
-        <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
+        <div class="bg-[#12151B] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/[0.06]">
                 <div>
                     <h2 class="text-xl sm:text-2xl font-heading font-bold text-white tracking-tight">
@@ -167,7 +167,7 @@
 
     @elseif($match->status === 'ready' || $match->status === 'in_progress')
         <!-- MATCH READY: CONNECT TO CS2 SERVER -->
-        <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-10 shadow-sm">
+        <div class="bg-[#12151B] border border-white/[0.07] rounded-3xl p-6 sm:p-10 shadow-sm">
             <div class="max-w-3xl mx-auto text-center">
                 <!-- Selected Map Banner -->
                 <div class="inline-block relative rounded-2xl overflow-hidden border border-white/[0.1] mb-6 shadow-md w-full max-w-xl group aspect-[16/9] max-h-72">
@@ -183,7 +183,7 @@
                 </div>
 
                 <!-- Connect & Leaver Timeout Box -->
-                <div class="bg-[#0E131C] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
+                <div class="bg-[#0E1116] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 mb-4 border-b border-white/[0.06] gap-3">
                         <div class="flex items-center space-x-2">
                             <span class="w-2.5 h-2.5 rounded-full {{ $match->connectRemainingSeconds() > 0 ? 'bg-amber-400 animate-pulse' : 'bg-red-500' }}"></span>
@@ -202,7 +202,7 @@
                     <!-- Players Connection Badges -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                         <!-- Player 1 Status -->
-                        <div class="bg-[#0B0E14] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
+                        <div class="bg-[#12151B] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="{{ $match->player1->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . $match->player1->name }}" class="w-9 h-9 rounded-lg border border-white/[0.1] object-cover" alt="P1">
                                 <div>
@@ -228,7 +228,7 @@
                             $isP2Bot = $match->player2 && $match->player2->is_bot;
                             $p2Connected = $match->player2_connected || $isP2Bot;
                         @endphp
-                        <div class="bg-[#0B0E14] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
+                        <div class="bg-[#12151B] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="{{ $match->player2->avatar ?? 'https://api.dicebear.com/7.x/bottts/svg?seed=' . ($match->player2->name ?? 'bot') }}" class="w-9 h-9 rounded-lg border border-white/[0.1] object-cover" alt="P2">
                                 <div>
@@ -277,7 +277,7 @@
                 @endif
 
                 <!-- Server Info & Connect Options Box -->
-                <div class="bg-[#0E131C] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
+                <div class="bg-[#0E1116] border border-white/[0.08] rounded-2xl p-6 mb-6 text-left">
                     <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.06]">
                         <div class="flex items-center space-x-2">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -296,7 +296,7 @@
                             readonly 
                             value="connect {{ $match->server_ip }}:{{ $match->server_port }}; password {{ $match->server_password }}" 
                             id="connectCmd"
-                            class="w-full bg-[#0B0E14] border border-white/[0.1] text-emerald-400 font-mono text-sm px-4 py-3 rounded-xl focus:outline-none">
+                            class="w-full bg-[#12151B] border border-white/[0.1] text-emerald-400 font-mono text-sm px-4 py-3 rounded-xl focus:outline-none">
                         <button 
                             type="button" 
                             onclick="navigator.clipboard.writeText(document.getElementById('connectCmd').value); alert('Команда скопирована! Откройте консоль в CS2 (~) и вставьте.');"
@@ -335,7 +335,7 @@
                     @endif
 
                     <!-- Step-by-step Connection Steps -->
-                    <div class="mt-4 bg-[#0B0E14] rounded-xl p-3 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-around gap-2 font-mono border border-white/[0.04]">
+                    <div class="mt-4 bg-[#12151B] rounded-xl p-3 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-around gap-2 font-mono border border-white/[0.04]">
                         <div class="flex items-center space-x-2">
                             <span class="w-5 h-5 rounded bg-white/[0.08] text-white font-bold flex items-center justify-center text-[10px]">1</span>
                             <span>Запустите CS2</span>
@@ -354,7 +354,7 @@
                 </div>
 
                 <!-- MatchZy Telemetry Status -->
-                <div class="bg-[#0E131C] border border-white/[0.06] rounded-xl p-4 text-left flex items-center justify-between text-xs font-mono text-neutral-400">
+                <div class="bg-[#0E1116] border border-white/[0.06] rounded-xl p-4 text-left flex items-center justify-between text-xs font-mono text-neutral-400">
                     <div class="flex items-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
                         <span class="text-white font-medium">Автоматическая телеметрия MatchZy:</span>
@@ -371,7 +371,7 @@
             $isWinner = ($match->winner_id === auth()->id());
             $myEloChange = ($match->player1_id === auth()->id()) ? $match->elo_change_p1 : $match->elo_change_p2;
         @endphp
-        <div class="bg-[#0B0E14] border border-white/[0.08] rounded-3xl p-10 mb-8 text-center relative overflow-hidden shadow-sm">
+        <div class="bg-[#12151B] border border-white/[0.08] rounded-3xl p-10 mb-8 text-center relative overflow-hidden shadow-sm">
             @if($match->forfeited_user_id)
                 <div class="mb-4 inline-flex items-center space-x-2 px-3 py-1 bg-red-950/40 border border-red-500/30 rounded-full text-red-300 text-xs font-mono uppercase tracking-wider">
                     <span>ТЕХНИЧЕСКОЕ ПОРАЖЕНИЕ (FORFEIT)</span>

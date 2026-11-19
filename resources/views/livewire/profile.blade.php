@@ -1,6 +1,6 @@
 <div class="max-w-5xl mx-auto space-y-6">
     <!-- Profile Header Card (Esports Player Profile) -->
-    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.07] rounded-3xl p-6 sm:p-8 shadow-sm">
         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <!-- Avatar with Level Shield -->
             <div class="relative shrink-0">
@@ -48,19 +48,19 @@
 
                 <!-- Key Metrics Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/[0.06]">
-                    <div class="bg-[#0E131C] p-3 rounded-xl border border-white/[0.05]">
+                    <div class="bg-[#0E1116] p-3 rounded-xl border border-white/[0.05]">
                         <span class="text-neutral-400 text-[11px] font-mono uppercase tracking-wider block">Рейтинг</span>
                         <span class="font-mono font-bold text-xl text-white tabular-nums">{{ $user->elo }} <span class="text-neutral-500 text-xs font-normal">ELO</span></span>
                     </div>
-                    <div class="bg-[#0E131C] p-3 rounded-xl border border-white/[0.05]">
+                    <div class="bg-[#0E1116] p-3 rounded-xl border border-white/[0.05]">
                         <span class="text-neutral-400 text-[11px] font-mono uppercase tracking-wider block">Винрейт</span>
                         <span class="font-mono font-bold text-xl text-white tabular-nums">{{ $user->winrate }}%</span>
                     </div>
-                    <div class="bg-[#0E131C] p-3 rounded-xl border border-white/[0.05]">
+                    <div class="bg-[#0E1116] p-3 rounded-xl border border-white/[0.05]">
                         <span class="text-neutral-400 text-[11px] font-mono uppercase tracking-wider block">Матчей</span>
                         <span class="font-mono font-bold text-xl text-white tabular-nums">{{ $user->matches_count }}</span>
                     </div>
-                    <div class="bg-[#0E131C] p-3 rounded-xl border border-white/[0.05]">
+                    <div class="bg-[#0E1116] p-3 rounded-xl border border-white/[0.05]">
                         <span class="text-neutral-400 text-[11px] font-mono uppercase tracking-wider block">Побед / Поражений</span>
                         <span class="font-mono font-semibold text-lg text-emerald-400 tabular-nums">{{ $user->wins_count }} <span class="text-neutral-600 text-sm">/</span> <span class="text-neutral-400">{{ $user->losses_count }}</span></span>
                     </div>
@@ -68,7 +68,7 @@
 
                 <!-- Admin Ban Control Bar -->
                 @if(auth()->check() && auth()->user()->isAdmin())
-                    <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 bg-[#0E131C] p-3.5 rounded-xl border border-white/[0.06]">
+                    <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 bg-[#0E1116] p-3.5 rounded-xl border border-white/[0.06]">
                         <div class="flex items-center space-x-2 text-xs font-mono">
                             <span class="text-neutral-400 font-semibold">Администрирование:</span>
                             @if($user->isBanned())
@@ -125,7 +125,7 @@
 
     <!-- Profile Edit Form (For Account Owner) -->
     @if($isOwnProfile)
-    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-2xl p-6 shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.07] rounded-2xl p-6 shadow-sm">
         <h2 class="text-base font-heading font-bold text-white tracking-tight mb-4 pb-3 border-b border-white/[0.06]">
             Настройки аккаунта
         </h2>
@@ -138,7 +138,7 @@
                 <input 
                     type="text" 
                     wire:model="name" 
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('name') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -155,7 +155,7 @@
                     type="text" 
                     wire:model="steamIdInput" 
                     placeholder="76561198000000001"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white font-mono text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white font-mono text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('steamIdInput') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
                 <p class="text-[11px] text-neutral-500 mt-1 font-mono">
                     Ваш Steam ID используется сервером Incloudgame для распознавания вашего игрового профиля.
@@ -172,7 +172,7 @@
     @endif
 
     <!-- Match History -->
-    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-2xl overflow-hidden shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.07] rounded-2xl overflow-hidden shadow-sm">
         <div class="p-5 border-b border-white/[0.06] flex items-center justify-between">
             <h2 class="text-base font-heading font-bold text-white tracking-tight">
                 История матчей игрока

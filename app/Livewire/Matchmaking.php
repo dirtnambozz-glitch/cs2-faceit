@@ -327,6 +327,7 @@ class Matchmaking extends Component
     {
         $user = Auth::user();
         $recentMatches = collect();
+        $lastEloDelta = null;
 
         if ($user) {
             $recentMatches = GameMatch::where(function ($q) use ($user) {
@@ -337,11 +338,33 @@ class Matchmaking extends Component
             ->latest()
             ->take(5)
             ->get();
+
+            $lastMatch = $recentMatches->first();
+            if ($lastMatch) {
+                $lastEloDelta = ($lastMatch->player1_id === $user->id) 
+                    ? $lastMatch->elo_change_p1 
+                    : $lastMatch->elo_change_p2;
+            }
         }
+
+        $topPlayers = User::orderByDesc('elo')->take(5)->get();
+        $allMaps = GameMap::where('is_active', true)->get();
+        if ($allMaps->isEmpty()) {
+            $allMaps = GameMap::take(7)->get();
+        }
+
+        $liveMatch = GameMatch::whereIn('status', ['ready', 'in_progress', 'finished'])
+            ->with(['player1', 'player2', 'map'])
+            ->latest()
+            ->first();
 
         return view('livewire.matchmaking', [
             'user' => $user,
             'recentMatches' => $recentMatches,
+            'topPlayers' => $topPlayers,
+            'allMaps' => $allMaps,
+            'liveMatch' => $liveMatch,
+            'lastEloDelta' => $lastEloDelta,
         ]);
     }
 }

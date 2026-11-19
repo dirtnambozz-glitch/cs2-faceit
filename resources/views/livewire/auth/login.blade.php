@@ -1,5 +1,5 @@
 <div class="max-w-md mx-auto py-10">
-    <div class="bg-[#0B0E14] border border-white/[0.08] rounded-3xl p-8 shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.08] rounded-3xl p-8 shadow-sm">
         <!-- Logo & Title -->
         <div class="text-center mb-6">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF5500] to-[#CC3A00] flex items-center justify-center mx-auto mb-3 shadow-[0_2px_12px_rgba(255,85,0,0.35)]">
@@ -37,7 +37,7 @@
         </a>
 
         <!-- Manual Steam ID Fallback -->
-        <div class="mb-5 bg-[#0E131C] border border-white/[0.06] rounded-xl p-3.5">
+        <div class="mb-5 bg-[#0E1116] border border-white/[0.06] rounded-xl p-3.5">
             <div class="text-[11px] font-mono font-medium text-neutral-400 mb-2 flex items-center justify-between">
                 <span>Вход по SteamID64:</span>
                 <span class="text-neutral-500 lowercase">(без пароля)</span>
@@ -62,7 +62,7 @@
         <!-- Divider -->
         <div class="relative flex items-center justify-center my-5">
             <div class="border-t border-white/[0.06] w-full"></div>
-            <span class="bg-[#0B0E14] px-3 text-xs font-mono text-neutral-500 relative">или через email</span>
+            <span class="bg-[#12151B] px-3 text-xs font-mono text-neutral-500 relative">или через email</span>
         </div>
 
         <!-- Email / Password Form -->
@@ -75,7 +75,7 @@
                     type="email" 
                     wire:model="email" 
                     placeholder="player@rivalis.gg"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('email') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -87,13 +87,13 @@
                     type="password" 
                     wire:model="password" 
                     placeholder="••••••••"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('password') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <div class="flex items-center justify-between text-xs text-neutral-400">
                 <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" wire:model="remember" class="rounded bg-[#0E131C] border-white/20 text-[#FF5500] focus:ring-0">
+                    <input type="checkbox" wire:model="remember" class="rounded bg-[#0E1116] border-white/20 text-[#FF5500] focus:ring-0">
                     <span>Запомнить меня</span>
                 </label>
             </div>

@@ -21,7 +21,7 @@
                     type="text" 
                     wire:model.live.debounce.300ms="search" 
                     placeholder="Поиск по никнейму..." 
-                    class="w-full bg-[#0B0E14] border border-white/[0.08] focus:border-[#FF5500] rounded-xl pl-9 pr-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none font-mono transition-colors">
+                    class="w-full bg-[#12151B] border border-white/[0.08] focus:border-[#FF5500] rounded-xl pl-9 pr-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none font-mono transition-colors">
                 <svg class="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
@@ -29,7 +29,7 @@
 
             <select 
                 wire:model.live="levelFilter" 
-                class="w-full sm:w-auto bg-[#0B0E14] border border-white/[0.08] focus:border-[#FF5500] rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-mono transition-colors cursor-pointer">
+                class="w-full sm:w-auto bg-[#12151B] border border-white/[0.08] focus:border-[#FF5500] rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-mono transition-colors cursor-pointer">
                 <option value="all">Все уровни (1–10)</option>
                 @for($lvl = 10; $lvl >= 1; $lvl--)
                     <option value="{{ $lvl }}">Уровень {{ $lvl }}</option>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Leaderboard Table Container -->
-    <div class="bg-[#0B0E14] border border-white/[0.07] rounded-2xl overflow-hidden shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.07] rounded-2xl overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>

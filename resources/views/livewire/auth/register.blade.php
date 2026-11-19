@@ -1,5 +1,5 @@
 <div class="max-w-md mx-auto py-8">
-    <div class="bg-[#0B0E14] border border-white/[0.08] rounded-3xl p-8 shadow-sm">
+    <div class="bg-[#12151B] border border-white/[0.08] rounded-3xl p-8 shadow-sm">
         <!-- Logo & Title -->
         <div class="text-center mb-6">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF5500] to-[#CC3A00] flex items-center justify-center mx-auto mb-3 shadow-[0_2px_12px_rgba(255,85,0,0.35)]">
@@ -26,7 +26,7 @@
         <!-- Divider -->
         <div class="relative flex items-center justify-center my-5">
             <div class="border-t border-white/[0.06] w-full"></div>
-            <span class="bg-[#0B0E14] px-3 text-xs font-mono text-neutral-500 relative">или форма регистрации</span>
+            <span class="bg-[#12151B] px-3 text-xs font-mono text-neutral-500 relative">или форма регистрации</span>
         </div>
 
         <form wire:submit.prevent="register" class="space-y-3.5">
@@ -38,7 +38,7 @@
                     type="text" 
                     wire:model="name" 
                     placeholder="s1mple"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('name') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -50,7 +50,7 @@
                     type="email" 
                     wire:model="email" 
                     placeholder="player@rivalis.gg"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('email') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -67,7 +67,7 @@
                     type="text" 
                     wire:model="steamIdInput" 
                     placeholder="76561198000000000"
-                    class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white font-mono text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                    class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white font-mono text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 @error('steamIdInput') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -80,7 +80,7 @@
                         type="password" 
                         wire:model="password" 
                         placeholder="••••••••"
-                        class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                        class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                     @error('password') <span class="text-xs text-red-400 mt-1 block">{{ $message }}</span> @enderror
                 </div>
 
@@ -92,7 +92,7 @@
                         type="password" 
                         wire:model="password_confirmation" 
                         placeholder="••••••••"
-                        class="w-full bg-[#0E131C] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
+                        class="w-full bg-[#0E1116] border border-white/[0.08] focus:border-[#FF5500] text-white text-sm px-3.5 py-2.5 rounded-xl focus:outline-none transition-colors">
                 </div>
             </div>
 
